@@ -1,0 +1,221 @@
+\documentclass{beamer}
+
+\usetheme{epfl}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\usepackage{media9}
+\usepackage{amsmath}
+\usepackage[thicklines]{cancel}
+\usepackage{svg}
+
+\begin{document}
+	
+	\title{Data-Driven Vegetation Modeling and Tackling Representation Shift}
+	\subtitle{with Few-Shot Meta-Learning Methods}
+	\author{Marc Russwurm}
+	\labname{EPFL-ECEO}
+	\date{\today}
+	
+	\logofilename{epfl/epfl_red.png}
+	\titlepageimage{epfl/lacleman}
+	\event{Deep Learning for Environment}
+	\presentation{Representation Shift and Few-Shot Meta-Learning Methods}
+	\speaker{Marc Russwurm}
+	
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+
+	\begin{frame}{Structure}
+		
+		\begin{enumerate}
+			\item Data-Driven Vegetation Modeling and 
+			\begin{itemize}
+				\item why is it meaningful
+				\item data-driven verus model-driven approaches
+			\end{itemize}
+			\item<2-> Tackling Representation Shift 
+			\begin{itemize}
+				\item when does it arise?
+				\item regional representations
+			\end{itemize}
+			\item<3> with Few-Shot Meta-Learning Methods
+			\begin{itemize}
+				\item seeing our remote sensing data as a dataset-of-datasets
+				\item Model-agnostic meta-learning as one algorithm to tackle it.
+			\end{itemize}
+		\end{enumerate}
+		
+	\end{frame}
+
+	\begin{frame}{Vegetation Modeling}
+		\begin{tikzpicture}
+			\node[fill=EPFLred, inner sep=1em, text=white, font=\bfseries]{Vegetation Modeling};
+		\end{tikzpicture}
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Why do we want to classify vegetation?}
+		\begin{columns}
+			\column{.5\textwidth}
+			{\scriptsize
+			\begin{description}
+				\item[Food security] Estimate the expected yield (from cultivated area) to predict food prices, shortages in countries that collect few agronomic statistics.
+				\item<2->[Precision Agriculture] Identifying vegetation is a first step to provide personalized recommendations to farmers on machining practices and location-based fertilizer use.
+				\item<3->[Subsidy control] In Europe: monitor and control crop subsidy payments for European farmers.
+				%				\item Precision agriculture: sd
+			\end{description}
+			}
+			\column{.5\textwidth}
+			\includegraphics[width=\textwidth]{images/sdg_goals.pdf}
+		\end{columns}
+		
+	\end{frame}
+
+	\begin{frame}{Remote Sensing Data in Abundance}
+		\begin{columns}
+			\column{.33\textwidth}
+				MODIS
+				
+				Temporal characteristics
+				\includemedia[
+				width=\textwidth,
+				activate=pageopen,
+				addresource=mp4/apenne_modis_ndvi.mp4,
+				flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
+					autoPlay=true}
+				]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
+				{\scriptsize visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
+			\column{.33\textwidth}
+				Sentinel 2
+			\column{.33\textwidth}
+				PlanetScope
+		\end{columns}
+	\end{frame}
+
+	
+	\begin{frame}
+		\frametitle{Photosynthesis: Light $\rightarrow$ Life}
+		%		\framesubtitle{Vegetation}
+		
+		\begin{columns}[b]
+			\column{.4\textwidth}
+			Spectral characteristics
+			\includegraphics[width=\textwidth]{images/leaf_smallannot.pdf}
+			common remote sensing feature: $\text{NDVI} = \frac{\text{NIR} - \text{RED}}{\text{NIR} + \text{RED}}$ \\
+			{\scriptsize images modified from wikipedia cc}
+			\column{.6\textwidth}
+			%			\includegraphics[width=\textwidth]{images/s2-landsat-comparison}
+			\includegraphics[width=4cm]{images/chlorophyll/Chlorophyll_ab_spectra-en}
+			
+		\end{columns}
+		
+		\vspace{2em}
+		Vegetation follows \textbf{seasonal life cycles} (phenology) which can be used to \textbf{distinguish categories}. 
+		
+	\end{frame}
+
+	\begin{frame}{Model-Driven Methods}
+		Feature Extraction		
+	\end{frame}
+
+	\begin{frame}{Data-Driven Methods}
+		DNNs
+	\end{frame}
+		
+	\begin{frame}{Label Data in Abundance!}
+		DNNs
+	\end{frame}
+
+	\begin{frame}{Problem solved?}
+		content...
+	\end{frame}
+
+	\begin{frame}{Representation Shift}
+		\includegraphics[width=\textwidth]{images/countries_globe}
+	\end{frame}
+	
+	\begin{frame}{Domain and Task}
+		\begin{tikzpicture}
+		\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
+		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+		\end{tikzpicture}
+		\vfill\tiny
+		{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+		
+	\end{frame}
+
+	\begin{frame}{Shift in Remote Sensing Data}
+		\includegraphics[width=.9\textwidth]{images/Sen12ms_distribution_shift}
+		
+		{\tiny
+		Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+	\end{frame}
+	
+	
+	\begin{frame}{A Frame Title}
+		
+		\begin{columns}
+			\column{.5\textwidth}
+			
+			
+			This is the frame content
+			\begin{itemize}
+				\item with some itemize objects
+				\item and another one
+			\end{itemize}
+			
+			Enumerates should work too
+			\begin{enumerate}
+				\item one
+				\item two
+			\end{enumerate}
+		
+			\column{.5\textwidth}
+			
+			A second column with other content, maybe more text, or something \emph{emphasized}. For more, highlight in \emphred{red} or \emphblue{blue}.
+			
+			
+			
+		\end{columns}
+		
+	\end{frame}
+
+		
+		\begin{frame}<presentation:9,13,14,15>%1-9,
+			\frametitle{Deep Neural Networks}
+			\centering
+			
+			\input{tikzfigures/neuralnetwork.tikz}
+	\end{frame}
+
+	\begin{frame}{Colors}
+		\centering
+		\begin{tikzpicture}[xscale=2.6, yscale=-2]
+		\tikzstyle{colorbox} = [minimum width=1.8cm, minimum height=1.8cm, text width=1.5cm, font=\scriptsize]
+		
+		\node(rouge) at (0,0)[fill=rouge,text=white, colorbox]{rouge};
+		\node(leman) at (0,1)[fill=leman,text=white, colorbox]{leman};
+		\node(grosseille) at (0,2)[fill=grosseille,text=white, colorbox]{grosseille};
+		\node(canard) at (0,3)[fill=canard,text=white, colorbox]{canard};
+		\node(montrose) at (1,0)[fill=montrose,text=white, colorbox]{montrose};
+		\node(perle) at (1,1)[fill=perle,text=white, colorbox]{perle};
+		\node(vertedeau) at (1,2)[fill=vertedeau,text=white, colorbox]{vertedeau};
+		\node(rose) at (1,3)[fill=rose,text=white, colorbox]{rose};
+		\node(acier) at (2,0)[fill=acier,text=white, colorbox]{acier};
+		\node(soufre) at (2,1)[fill=soufre,text=white, colorbox]{soufre};
+		\node(carotte) at (2,2)[fill=carotte,text=white, colorbox]{carotte};
+		\node(zinzolin) at (2,3)[fill=zinzolin,text=white, colorbox]{zinzolin};
+		\node(chartreuse) at (3,0)[fill=chartreuse,text=white, colorbox]{chartreuse};
+		\node(marron) at (3,1)[fill=marron,text=white, colorbox]{marron};
+		\node(ardoise) at (3,2)[fill=ardoise,text=white, colorbox]{ardoise};
+		\node(taupe) at (3,3)[fill=taupe,text=white, colorbox]{taupe};
+		
+		\end{tikzpicture}
+		
+		
+\end{frame}
+
+\end{document}

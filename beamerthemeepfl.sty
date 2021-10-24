@@ -1,0 +1,223 @@
+\ProvidesPackage{beamerthemeepfl}
+
+\RequirePackage{tikz}
+\RequirePackage{iftex}
+\RequirePackage[export]{adjustbox}
+\RequirePackage{etoolbox}
+\RequirePackage{rotating}
+\RequirePackage{xcolor}
+\RequirePackage{helvet}
+
+\usetikzlibrary{calc}
+
+\AtBeginDocument{\setbeamertemplate{logo}{}}
+
+\newif\ifprintsectiontitle\printsectiontitletrue
+
+\usecolortheme{epfl}
+\usefonttheme{epfl}
+
+\def\@logofilename{}
+\def\logofilename#1{\gdef\@logofilename{#1}}
+
+\def\@labname{}
+\def\labname#1{\gdef\@labname{#1}}
+
+\def\@titlepageimage{}
+\def\titlepageimage#1{\gdef\@titlepageimage{#1}}
+
+\def\@event{}
+\def\event#1{\gdef\@event{#1}}
+
+\def\@presentation{}
+\def\presentation#1{\gdef\@presentation{#1}}
+
+\def\@speaker{}
+\def\speaker#1{\gdef\@speaker{#1}}
+
+% Sizes
+\setbeamersize{text margin left=0.05\paperwidth, text margin right=0.05\paperwidth}
+
+\renewcommand<>{\emph}[1]{%
+	{\usebeamercolor[fg]{emph}\only#2{\bfseries}#1}%
+}
+
+\newcommand<>{\emphred}[1]{%
+	{\color{EPFLofficial}\only#2{\bfseries}#1}%
+}
+
+
+\newcommand<>{\emphblue}[1]{%
+	{\color{EPFLalternativedark}\only#2{\bfseries}#1}%
+}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=white]
+
+\setbeamertemplate{footline}{
+  \centering
+  \parbox{\linewidth}{
+    \insertauthor~~|~~\insertdate
+    \hfill
+    {\usebeamercolor[fg]{page number in head/foot}\insertframenumber}~/~\inserttotalframenumber}\\[1em]
+}
+
+\newlength{\ruleheight}
+\newlength{\rulewidth}
+\setlength{\ruleheight}{0.5mm}
+\setlength{\rulewidth}{0.75\linewidth}
+
+
+
+\setbeamertemplate{title page}{
+\usebeamercolor{title page}
+
+\pgfdeclareimage[width=1.1\paperwidth]{titlegraphic}{\@titlepageimage}
+%\pgfdeclareimage[width=3cm]{epfllogo}{\@titlepagelogo}
+
+ \begin{picture}(0,0)
+  
+  \put(45,-183){%
+  	\pgfuseimage{titlegraphic}
+  }
+
+
+	\put(65,-20){%
+		\begin{minipage}{10cm}
+		\raggedleft
+		\colorbox{EPFLred}{
+			\setlength{\fboxrule}{0pt}
+			\fbox{
+				\begin{minipage}{4cm}
+				
+				\raggedleft
+				{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+				
+				
+				{%% Subtitle
+					\ifx\insertsubtitle\@empty%
+					\else%
+					%		    \settowidth{\rulewidth}{\inserttitle}
+					%		    {\hfill\usebeamercolor[bg]{title page}\rule{\rulewidth}{\ruleheight}\\[0.5em]}
+					{\hfill\usebeamercolor[bg]{title page}\rule{3cm}{\ruleheight}\\[0.5em]}
+					\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+					\fi%
+				}
+				\end{minipage}
+			}
+		}
+	
+		\vspace{-1pt}
+		\hfill\colorbox{EPFLdark}{
+			\setlength{\fboxrule}{0pt}
+			\fbox{
+				\begin{minipage}{3cm}
+				\raggedleft
+				%% Author
+				{\usebeamercolor{author}\usebeamerfont{author}\insertauthor}\par
+				\vfill
+%				~
+				%% Lab
+				\vfill
+				{\usebeamercolor{date}\usebeamerfont{date} \@labname}\par
+				~
+				%% Date
+				\vfill
+				{\usebeamercolor{date}\usebeamerfont{date} \insertdate}\par
+				\end{minipage}
+			}
+		}
+		\hspace{4.85cm}
+		\end{minipage}
+		
+	}
+
+	\put(-18,85){%
+		\includegraphics[height=0.1\paperheight]{\@logofilename}
+	}
+
+	\put(-9,-145){%
+		\begin{minipage}{3cm}
+		\scriptsize
+		\color{EPFLred}\tiny
+		École \\ polytechnique \\ fédérale de \\ Lausanne
+		\end{minipage}
+	}
+
+	\put(-15,-132){%
+		\fboxsep=0.7mm\fboxrule=0mm\fcolorbox{EPFLred}{EPFLred}{\null}
+	}
+
+\end{picture}
+
+}
+
+
+%\newlength{\widthofcurrentsection}
+%\setbeamertemplate{section in head/foot}{
+%  \settowidth{\widthofcurrentsection}{\insertsectionhead\quad}
+%  \begin{beamercolorbox}[center,dp=0.5ex,ht=2ex,wd=\widthofcurrentsection]{section in head/foot} 
+%    \usebeamercolor[fg]{section in head/foot}\usebeamerfont{section in head/foot}\insertsectionhead
+%  \end{beamercolorbox}
+%}
+%
+%\setbeamertemplate{section in head/foot shaded}{
+%  \usebeamerfont{section in head/foot shaded}\usebeamercolor[fg]{section in head/foot shaded}\insertsectionhead
+%}
+
+\setbeamertemplate{sidebar canvas left}{}
+\setbeamersize{sidebar width left=0cm}
+\setbeamertemplate{sidebar left}{
+		
+
+		
+		\vspace*{\fill}
+		{
+		\setlength{\fboxrule}{0pt}
+			\fbox{
+			\begin{sideways}
+				 \raisebox{0.5mm}{\fboxsep=0.8mm \fboxrule=0mm \fcolorbox{EPFLred}{EPFLred}{\null}}
+				 {\color{EPFLred} \MakeUppercase{\@event}~/~\MakeUppercase{\@presentation}}
+			\end{sideways}
+			}
+		}
+		\vspace{5.7em}
+}
+
+\setbeamertemplate{sidebar canvas right}{}
+\setbeamersize{sidebar width right=0.5cm}
+\setbeamertemplate{sidebar right}{%
+	{%
+		\setlength{\fboxrule}{0pt}
+		
+		
+		\fbox{%
+			\begin{sideways}
+				{\color{EPFLred} \MakeUppercase{\@speaker}}
+			\end{sideways}
+		}
+	}
+}
+
+
+\setbeamertemplate{footline}{}
+
+
+\setbeamertemplate{headline}{
+	\ifx\@logofilename\empty%
+	\else%
+	\includegraphics[height=0.1\paperheight]{\@logofilename}
+	\fi
+	\hfill
+	\textbf{\insertframenumber}
+	\hspace{1.1em}
+}
+
+\setbeamertemplate{frametitle}{
+	\begin{minipage}{\paperwidth}%
+		\vspace{-.2em}\hspace{3.2em}%
+		\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}\insertframetitle\phantom{yh}
+	\end{minipage}
+    
+}

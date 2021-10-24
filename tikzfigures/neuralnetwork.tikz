@@ -1,0 +1,209 @@
+\newcommand{\V}[1]{\ensuremath{\mathsymbol{\lowercase{#1}}}}
+\newcommand{\M}[1]{\ensuremath{\mathsymbol{\uppercase{#1}}}}
+%
+%\newcommand{\mathbf{w}}{\ensuremath{\M{W}}}
+%\newcommand{\mathbf{w}}{\ensuremath{\M{W}}}
+\newcommand{\VBias}{\ensuremath{\V{b}}}
+\newcommand{\VInput}{\DataVec}
+\newcommand{\VHidden}{\ensuremath{\V{h}}}
+\newcommand{\FActivation}{\ensuremath{\sigma}}
+\newcommand{\VCellState}{\ensuremath{\V{c}}}
+\newcommand{\VForgetGate}{\ensuremath{\V{f}}}
+\newcommand{\VModulationGate}{\ensuremath{\V{j}}}
+\newcommand{\VInputGate}{\ensuremath{\V{i}}}
+\newcommand{\VOutputGate}{\ensuremath{\V{o}}}
+
+
+\tikzstyle{circ} = [circle, draw=white, fill=tumblue, inner sep=1pt]
+\newcommand{\fcn}{
+	\begin{tikzpicture}[scale=0.2, rotate=0, baseline=-.25em, inner sep=1pt]
+	\node[circ](a0) at (0,-1){};
+	\node[circ](a1) at (0,0){};
+	\node[circ](a2) at (0,1){};
+	
+	\node[circ](b0) at (1,-0.5){};
+	\node[circ](b1) at (1,0.5){};
+	
+	\draw[-] (a0) -- (b0);
+	\draw[-] (a1) -- (b0);
+	\draw[-] (a2) -- (b0);
+	
+	\draw[-] (a0) -- (b1);
+	\draw[-] (a1) -- (b1);
+	\draw[-] (a2) -- (b1);
+	
+	\end{tikzpicture}
+}
+
+
+\newcommand{\earth}{
+	\begin{tikzpicture}[baseline=-.25em, inner sep=0]
+	\node{\includegraphics[width=8mm]{images/icons/earth}};
+	\end{tikzpicture}
+}
+
+\newcommand{\sat}{
+	\begin{tikzpicture}[baseline=-.25em, inner sep=0]
+	\node[rotate=270,anchor=center]{\includegraphics[width=8mm]{images/icons/sat2}};
+	\end{tikzpicture}
+}
+
+\newcommand{\hidden}[1]{
+	\begin{tikzpicture}[scale=.1, baseline=-.25em]	
+	%\draw[step=1.0,black,thin] (0,0) grid (#1,1);
+	\foreach \i in {1,...,#1}{
+		\node[circle, draw=white, fill=tumbluelight, inner sep=1pt] at (\i,0){};
+	}
+	\end{tikzpicture}
+}
+
+\newcommand{\drawvector}[1]{
+	\begin{tikzpicture}[scale=.1, baseline=-.25em]	
+	%\draw[step=1.0,black,thin] (0,0) grid (#1,1);
+	\foreach \i in {1,...,#1}{
+		\node[circ] at (\i,0){};
+	}
+	\end{tikzpicture}
+}
+\tikzstyle{proba} = [circle, draw=tumgray, inner sep=2.5pt, fill=tumorange]
+\newcommand{\drawprobas}[5]{
+	\begin{tikzpicture}[scale=.3, baseline=-.25em]	
+	
+	\node[proba, fill=tumblue!#1] at (0,-2){};
+	\node[proba, fill=tumblue!#2] at (0,-1){};
+	\node[proba, fill=tumblue!#3] at (0,-0){};
+	\node[proba, fill=tumblue!#4] at (0,1){};
+	\node[proba, fill=tumblue!#5] at (0,2){};
+	\end{tikzpicture}
+}
+
+
+
+\newcommand{\vegetationsmodell}{
+	\begin{tikzpicture}[scale=0.5, rotate=0, baseline=-.25em, minimum width=0cm, minimum height=0cm]
+	\node[proba](a0) at (0,-1){};
+	\node[proba](a1) at (0,0){};
+	\node[proba](a2) at (0,1){};
+	
+	\node[proba](b0) at (1,-0.5){};
+	\node[proba](b1) at (1,0.5){};
+	
+	\draw[-] (a0) -- (b0);
+	\draw[-] (a1) -- (b0);
+	\draw[-] (a2) -- (b0);
+	
+	\draw[-] (a0) -- (b1);
+	\draw[-] (a1) -- (b1);
+	\draw[-] (a2) -- (b1);
+	
+	%	\node[fit=(a0)(a2)(b1)](node name){};
+	
+	\end{tikzpicture}
+}
+
+\tikzstyle{tsmark} = [mark=|,mark size=2pt]
+
+\colorlet{tumgray}{gray}
+\colorlet{tumorange}{carotte}
+\colorlet{tumblue}{leman}
+\colorlet{tumbluedark}{canard}
+
+
+\begin{tikzpicture}[node distance=.1em]
+			\node[minimum width=1cm, minimum height=1.5cm, draw,rounded corners](veg) at (0,0){\vegetationsmodell};
+			\coordinate[below=1em of veg](labelreference);
+			\node(annotveg) at (labelreference){$f_{{\mathbf{w}}}$};
+			\visible<1>{
+				\node[above=2em of veg, font=\small, xshift=4em, text width=17em](annotf){\textbf{{\Large \color{tumblue}differentiable} non-linear function} \\ width randomly initialized weights $\mathbf{w}$};
+				\draw[-stealth] (annotf) -- (veg);
+			}
+			\node[right=1em of veg, inner sep=0](input){%
+				%		$\left(
+				\only<1-12>{%
+					$\mathbf{X}$%\rawtimeseriestwo{12-71456800.csv}%
+				}%
+				\only<0>{%9-12
+					\begin{tikzpicture}[baseline=-1.5em, xscale=0.3, yscale=-.3]
+					\foreach \x in {0,...,15}{
+						\node[draw=tumgraylight, circle, fill=b2color, text=white, text opacity=1, font=\small, inner sep=2.5pt](d) at (\x,0){};
+						\node[draw=tumgraylight, circle, fill=b3color, text=white, text opacity=1, font=\small, inner sep=2.5pt](d) at (\x,1){};
+						\node[draw=tumgraylight, circle, fill=b4color, text=white, text opacity=1, font=\small, inner sep=2.5pt](d) at (\x,2){};
+						\node[draw=tumgraylight, circle, fill=b5color, text=white, text opacity=1, font=\small, inner sep=2.5pt](d) at (\x,3){};
+						\node[draw=tumgraylight, circle, fill=b6color, text=white, text opacity=1, font=\small, inner sep=2.5pt](d) at (\x,4){};
+					}
+					\end{tikzpicture}%
+				}%
+				\only<13-14>{
+					\begin{tikzpicture}
+					\node[draw, rounded corners, minimum width=1cm, minimum height=1.5cm](preproc){\includegraphics[width=.8cm]{images/icons/gears}};
+					\node[right=1.5em of preproc](input){$\mathbf{X}$};%\rawtimeseriestwo{12-71456800_raw.csv}
+					\node[font=\huge,left=0em of input, inner sep=0](bopen){$\Bigg($};
+					\node[font=\huge, right=0em of input, inner sep=0](bopen){$\Bigg)$};
+					\end{tikzpicture}
+				}
+				\only<15>{
+					$\mathbf{X}$%\rawtimeseriestwo{12-71456800_raw.csv}
+				}
+			};% \rawtimeseries{prep77770412.csv}
+			\only<13,14>{
+				\node[right=1.5em of annotveg]{$f_{{\mathbf{w}}_\text{preproc}}$};
+			}
+			
+			
+			\node(annotinput) at (labelreference -| input){$\mathbf{X}$};
+			\node[font=\huge,left=0em of input, inner sep=0](bopen){$\Bigg($};
+			\node[font=\huge, right=0em of input, inner sep=0](bopen){$\Bigg)$};
+			\node[left= of veg, font=\huge](equals){$=$};
+			\only<-5>{\node[left= of equals](probas){\drawprobas{10}{30}{10}{20}{10}};}
+			\visible<5>{\node[left= of equals](probas){\drawprobas{20}{30}{50}{20}{30}};}
+			\visible<6>{\node[left= of equals](probas){\drawprobas{30}{40}{30}{50}{20}};}
+			\visible<7>{\node[left= of equals](probas){\drawprobas{20}{20}{20}{80}{10}};}
+			\visible<8->{\node[left= of equals](probas){\drawprobas{10}{30}{10}{100}{10}};}
+			\node(annotprobas) at (labelreference -| probas){$\hat{y}$};
+			\visible<2->{
+				\node[left= 5em of probas](gt){\drawprobas{0}{0}{0}{100}{0}};
+				\node(annotgt) at (labelreference -| gt){$\mathbf{y}$};
+			}
+			\visible<3->{
+				\draw[stealth-stealth] (gt) -- node[midway,above](loss){$\mathcal{L}(\mathbf{y},\hat{y})$} (probas);
+			}
+			
+			
+			\visible<4->{\draw[-stealth] (loss)  to [out=60,in=135,looseness=1] node[midway,above]{${\mathbf{w}} \leftarrow \mathbf{w} - \frac{\partial \mathcal{L}}{\partial {\mathbf{w}}}$} (veg);}
+			
+			
+			\only<9-12>{
+				\node[above=10em of annotinput, font=\Large\bfseries, text=white, fill=tumbluedark, rounded corners](e1){End};
+				\node[above=10em of annotgt, font=\Large\bfseries, text=white, fill=tumbluedark, rounded corners](e2){End};
+				\node[above=10em of annotveg, text=white, fill=tumbluedark, font=\Large\bfseries, rounded corners](to){to};
+				\draw[thick, tumbluedark] (e1) -- (to) -- (e2);
+			}
+			
+			\only<10>{
+				\node[below=of annotinput]{Satellite Time Series};
+				\node[below=of annotgt]{Crop Types};
+			}
+			
+			\only<11>{
+				\node[below=of annotinput]{Images (single Band)};
+				\node[below=of annotgt]{Cats and Dogs};
+			}
+			\only<12>{
+				\node[below=of annotinput]{Text and Language};
+				\node[below=of annotgt]{Sentiment};
+			}
+			
+			\only<14>{
+				\coordinate(fpreproc) at ($ (veg)+(3.5em,0) $);
+				
+				\draw[-stealth, dotted, red, thick] (loss)  to [out=-60,in=-135,looseness=1] node[midway,below]{\xcancel{$\frac{\partial \mathcal{L}}{\partial {\mathbf{w}}_\text{preproc}}$}} ($ (fpreproc)+(0,-2.3em) $);
+				
+				\node[above right=6em of fpreproc](a){$\mathbf{w}_\text{sel}$: start/end of vegetation period};
+				\node[below right=6em of fpreproc](b){$\mathbf{w}_\text{atm}$: atmospheric parameters};
+				\node[below right=7em and 2em of fpreproc, text width=14em](c){$\mathbf{w}_\text{cl}$: cloud classifier trained on different training set};
+				\draw[-stealth, shorten >=4em] (a.south west) -- (fpreproc);
+				\draw[-stealth, shorten >=4em] (b.north west) -- (fpreproc);
+				\draw[-stealth, shorten >=4em] (c.north west) -- (fpreproc);
+			}
+			
+		\end{tikzpicture}
