@@ -2,12 +2,18 @@
 
 \usetheme{epfl}
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{positioning,arrows.meta}
 
 \usepackage{media9}
 \usepackage{amsmath}
 \usepackage[thicklines]{cancel}
 \usepackage{svg}
+\newcommand{\citeapa}[1]{ {\tiny#1\par} }
+
+% primary colors
+\definecolor{tumblue}{RGB}{0,101,189} % Pantone 300
+\definecolor{tumorange}{RGB}{227,114,34} % Pantone 158 - Orange
+
 
 \begin{document}
 	
@@ -62,9 +68,9 @@
 			\column{.5\textwidth}
 			{\scriptsize
 			\begin{description}
-				\item[Food security] Estimate the expected yield (from cultivated area) to predict food prices, shortages in countries that collect few agronomic statistics.
-				\item<2->[Precision Agriculture] Identifying vegetation is a first step to provide personalized recommendations to farmers on machining practices and location-based fertilizer use.
-				\item<3->[Subsidy control] In Europe: monitor and control crop subsidy payments for European farmers.
+				\item[Zero Hunger] estimating the \textbf{crop yield} \& predict \textbf{food prices}, shortages.
+				\item<2->[Climate Action] by monitoring \textbf{vegetation changes} over time (desertification).
+				\item<3->[Life on Land] human life depends on \textbf{agriculture}, animal life on \textbf{biotopes}.
 				%				\item Precision agriculture: sd
 			\end{description}
 			}
@@ -75,11 +81,9 @@
 	\end{frame}
 
 	\begin{frame}{Remote Sensing Data in Abundance}
-		\begin{columns}
+		\begin{columns}[t]
 			\column{.33\textwidth}
 				MODIS
-				
-				Temporal characteristics
 				\includemedia[
 				width=\textwidth,
 				activate=pageopen,
@@ -87,12 +91,63 @@
 				flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
 					autoPlay=true}
 				]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
-				{\scriptsize visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
+				{\tiny visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
+			
+%				\vfill
+%				\scriptsize daily, global scale, 36 bands (1km by 1km pixels)
 			\column{.33\textwidth}
-				Sentinel 2
+				Sentinel/Landsat
+				\includemedia[
+				width=\textwidth,
+				activate=pageopen,
+				addresource=mp4/sentinel2.mp4,
+				flashvars={source=mp4/sentinel2.mp4&loop=true&
+					autoPlay=true}
+				]{\includegraphics[width=\textwidth]{mp4/sentinel2.png}}{mp4/sentinel2.mp4}
+				{\tiny visualization ESA}
+%				\vfill
+%				\scriptsize 2-5 days, regional scale, 13 bands (10m by 10m pixels)
 			\column{.33\textwidth}
 				PlanetScope
+				\includemedia[
+				width=\textwidth,
+				activate=pageopen,
+				addresource=mp4/planet_denethor.mp4,
+				flashvars={source=mp4/planet_denethor.mp4&loop=true&
+					autoPlay=true}
+				]{\includegraphics[width=\textwidth]{mp4/planet_denethor.png}}{mp4/planet_denethor.mp4}
+				{\tiny DENETHOR dataset /\\ Kondmann et al., (2021)\par}
+%				\vfill
+%				\scriptsize daily, local scale, 4 bands (3m by 3m pixels)
 		\end{columns}
+	
+		\vspace{1em}
+	
+		\begin{columns}
+			\scriptsize
+			\column{.33\textwidth}		
+			\begin{itemize}
+				\item daily/half-monthly
+				\item 250m by 250m pixels
+				\item 39 bands
+			\end{itemize}	
+			\column{.33\textwidth}
+			\begin{itemize}
+				\item 2-5 days
+				\item 10m by 10m pixels
+				\item 13 bands
+			\end{itemize}
+			\column{.33\textwidth}
+			\begin{itemize}
+				\item daily
+				\item 3m by 3m pixels
+				\item 4 bands
+			\end{itemize}
+
+	\end{columns}
+	
+		\vspace{1cm}
+		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
 	\end{frame}
 
 	
@@ -100,20 +155,102 @@
 		\frametitle{Photosynthesis: Light $\rightarrow$ Life}
 		%		\framesubtitle{Vegetation}
 		
-		\begin{columns}[b]
-			\column{.4\textwidth}
-			Spectral characteristics
-			\includegraphics[width=\textwidth]{images/leaf_smallannot.pdf}
-			common remote sensing feature: $\text{NDVI} = \frac{\text{NIR} - \text{RED}}{\text{NIR} + \text{RED}}$ \\
-			{\scriptsize images modified from wikipedia cc}
-			\column{.6\textwidth}
-			%			\includegraphics[width=\textwidth]{images/s2-landsat-comparison}
-			\includegraphics[width=4cm]{images/chlorophyll/Chlorophyll_ab_spectra-en}
+		\begin{columns}[t]
 			
+			\column{.5\textwidth}
+			\includegraphics[width=\textwidth]{images/leaf_smallannot.pdf}
+%			common remote sensing feature: $\text{NDVI} = \frac{\text{NIR} - \text{RED}}{\text{NIR} + \text{RED}}$ \\
+			{\tiny Image adapted from wikipedia cc}
+			
+			\column{.5\textwidth}
+			\includegraphics[width=\textwidth]{images/reflectance_vegetation}
+			\tiny Image from Roman et al., (2016)
 		\end{columns}
 		
 		\vspace{2em}
 		Vegetation follows \textbf{seasonal life cycles} (phenology) which can be used to \textbf{distinguish categories}. 
+		
+		\vfill
+		
+		\citeapa{Roman, A., \& Ursu, T. (2016). Multispectral satellite imagery and airborne laser scanning techniques for the detection of archaeological vegetation marks. Landsc. Archaeol. North. Front. Rom. Emp. Porolissum, 141-152.}
+		
+	\end{frame}
+
+	\begin{frame}
+		
+		\begin{tikzpicture}[node distance=0em]
+		\node(a) at (0,0){\includegraphics[width=0.9\textwidth]{images/denethor/43647_Meadows_images}};
+		\node(b)[below=0em of a]{\includegraphics[width=0.9\textwidth]{images/denethor/82235_Wheat_images}};
+		\visible<1>{
+			\node(c)[below=of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plots_2018.pdf}};
+		}
+	
+		\visible<2>{
+			\node(c)[below=of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plotss2.pdf}};
+		}
+		\node(d)[right=-4em of c, yshift=1em]{\includegraphics[width=3cm]{images/denethor/map}};
+		
+		%\node[below=of c]{\includegraphics[width=.9\textwidth]{images/plotss2}};
+		
+		\definecolor{mpldefaultblue}{HTML}{1f77b4}
+		%\coodinate (l1) at ($ (c) + (1,1) $);
+		\draw[Circle - , color=mpldefaultblue] ($ (c) + (-.45,1.6) $) -- ($ (b) + (-3.8,-.8) $); % requires \usetikzlibrary{arrows.meta} and calc
+		\draw[Circle - , color=mpldefaultblue] ($ (c) + (.78,1.6) $) -- ($ (b) + (-1.4,-.8) $);
+		\draw[Circle - , color=mpldefaultblue] ($ (c) + (1.38,1.6) $) -- ($ (b) + (1.6,-.8) $);
+		\draw[Circle - , color=mpldefaultblue] ($ (c) + (2.46,1.6) $) -- ($ (b) + (5,-.8) $);
+		
+		%\node[circle, draw] at (l1) {+};
+		
+		\end{tikzpicture}
+	\end{frame}
+
+	\begin{frame}
+		\begin{columns}
+			\column{.5\textwidth}
+				\resizebox{\textwidth}{!}{
+					\begin{tikzpicture}
+					\node[label={above:\scriptsize growth stages of corn Mimic et al 2020}, inner sep=0](a){\includegraphics[width=6cm]{images/example/mimicetal2020_phenology_maize_}};
+					
+					\node[below=1em of a] (b){\includegraphics{images/example/NDVI}};
+					
+					\coordinate(left)  at ($(a.south west)+(-4.3em,0)$);
+					\coordinate(right) at ($(a.south east)+(1.1em,0)$);
+					
+					\coordinate(veannot) at ($(left)!0.22!(right)$){};
+					\coordinate(vtwoannot) at ($(left)!0.275!(right)$){};
+					\coordinate(vfiveannot) at ($(left)!0.34!(right)$){};
+					\coordinate(vtenannot) at ($(left)!0.42!(right)$){};
+					\coordinate(btnnot) at ($(left)!0.5!(right)$){};
+					\coordinate(rtwoannot) at ($(left)!0.6!(right)$){};
+					\coordinate(rthreeannot) at ($(left)!0.7!(right)$){};
+					\coordinate(rfiveannot) at ($(left)!0.8!(right)$){};
+					\coordinate(harvestannot) at ($(left)!0.9!(right)$){};
+					
+					\coordinate(ve) at      ($ (b.center)+(-4em  ,1em) $);
+					\coordinate(vtwo) at    ($ (b.center)+(-3em  ,1em) $);
+					\coordinate(vfive) at   ($ (b.center)+(-2.5em,3em) $);
+					\coordinate(vten) at    ($ (b.center)+(-2em  ,4em) $);
+					\coordinate(bt) at      ($ (b.center)+(-1.5em,4.5em) $);
+					\coordinate(rtwo) at    ($ (b.center)+(-1em  ,4.5em) $);
+					\coordinate(rthree) at  ($ (b.center)+(-0em  ,2em) $);
+					\coordinate(rfive) at   ($ (b.center)+(1.5em ,0.5em) $);
+					\coordinate(harvest) at ($ (b.center)+(3em   ,0.5em) $);
+					
+					\draw[Circle-,tumorange](veannot)      -- (ve);
+					\draw[Circle-,tumorange](vtwoannot)    -- (vtwo);
+					\draw[Circle-,tumorange](vfiveannot)   -- (vfive);
+					\draw[Circle-,tumorange](vtenannot)    -- (vten);
+					\draw[Circle-,tumorange](btnnot)       -- (bt);
+					\draw[Circle-,tumorange](rtwoannot)    -- (rtwo);
+					\draw[Circle-,tumorange](rthreeannot)  -- (rthree);
+					\draw[Circle-,tumorange](rfiveannot)   -- (rfive);
+					\draw[Circle-,tumorange](harvestannot) -- (harvest);
+					\end{tikzpicture}
+				}
+			\column{.5\textwidth}
+				\includegraphics[width=\textwidth]{images/example/jointplot}
+			
+		\end{columns}
 		
 	\end{frame}
 
@@ -143,15 +280,14 @@
 		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
 		\end{tikzpicture}
 		\vfill\tiny
-		{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
 		
 	\end{frame}
 
 	\begin{frame}{Shift in Remote Sensing Data}
 		\includegraphics[width=.9\textwidth]{images/Sen12ms_distribution_shift}
 		
-		{\tiny
-		Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
 	\end{frame}
 	
 	
