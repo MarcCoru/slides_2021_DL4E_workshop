@@ -1,8 +1,10 @@
-\documentclass{beamer}
+\documentclass[11pt]{beamer}
 
 \usetheme{epfl}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{calc,patterns,angles,quotes, fadings}
+\usetikzlibrary{decorations}
 
 \usepackage{media9}
 \usepackage{amsmath}
@@ -122,19 +124,19 @@
 		\end{columns}
 	
 		\vspace{1em}
+		\small
 	
 		\begin{columns}
-			\scriptsize
 			\column{.33\textwidth}		
 			\begin{itemize}
 				\item daily/half-monthly
-				\item 250m by 250m pixels
+				\item 250m by 250m px
 				\item 39 bands
 			\end{itemize}	
 			\column{.33\textwidth}
 			\begin{itemize}
 				\item 2-5 days
-				\item 10m by 10m pixels
+				\item 10m by 10m px
 				\item 13 bands
 			\end{itemize}
 			\column{.33\textwidth}
@@ -146,7 +148,7 @@
 
 	\end{columns}
 	
-		\vspace{1cm}
+		\vspace{3mm}
 		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
 	\end{frame}
 
@@ -155,20 +157,26 @@
 		\frametitle{Photosynthesis: Light $\rightarrow$ Life}
 		%		\framesubtitle{Vegetation}
 		
-		\begin{columns}[t]
+		\begin{columns}[b]
 			
 			\column{.5\textwidth}
 			\includegraphics[width=\textwidth]{images/leaf_smallannot.pdf}
 %			common remote sensing feature: $\text{NDVI} = \frac{\text{NIR} - \text{RED}}{\text{NIR} + \text{RED}}$ \\
 			{\tiny Image adapted from wikipedia cc}
-			
+			%
 			\column{.5\textwidth}
 			\includegraphics[width=\textwidth]{images/reflectance_vegetation}
 			\tiny Image from Roman et al., (2016)
 		\end{columns}
 		
-		\vspace{2em}
-		Vegetation follows \textbf{seasonal life cycles} (phenology) which can be used to \textbf{distinguish categories}. 
+		\normalsize
+		
+		\vspace{1em}
+		Normalized Difference Vegetation Index.
+		\vspace{1em}
+		\begin{align}
+			\text{NDVI}(\text{red}, \text{nir}) = \frac{\text{nir}-\text{red}}{\text{nir}+\text{red}}
+		\end{align}
 		
 		\vfill
 		
@@ -176,35 +184,38 @@
 		
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}<presentation:1>
+		\frametitle{Satellite Time Series}
 		
 		\begin{tikzpicture}[node distance=0em]
-		\node(a) at (0,0){\includegraphics[width=0.9\textwidth]{images/denethor/43647_Meadows_images}};
-		\node(b)[below=0em of a]{\includegraphics[width=0.9\textwidth]{images/denethor/82235_Wheat_images}};
+		\node(a) at (0,0){\includegraphics[width=10cm]{images/denethor/43647_Meadows_images}};
+		\node(b)[below=0em of a]{\includegraphics[width=10cm]{images/denethor/82235_Wheat_images}};
 		\visible<1>{
-			\node(c)[below=of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plots_2018.pdf}};
+			\node(c)[below=1cm of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plots_2018.pdf}};
 		}
 	
 		\visible<2>{
-			\node(c)[below=of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plotss2.pdf}};
+			\node(c)[below=1cm of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plotss2.pdf}};
 		}
-		\node(d)[right=-4em of c, yshift=1em]{\includegraphics[width=3cm]{images/denethor/map}};
+		\node(d)[right=-2em of c, yshift=1em]{\includegraphics[width=3cm]{images/denethor/map}};
 		
 		%\node[below=of c]{\includegraphics[width=.9\textwidth]{images/plotss2}};
 		
 		\definecolor{mpldefaultblue}{HTML}{1f77b4}
 		%\coodinate (l1) at ($ (c) + (1,1) $);
-		\draw[Circle - , color=mpldefaultblue] ($ (c) + (-.45,1.6) $) -- ($ (b) + (-3.8,-.8) $); % requires \usetikzlibrary{arrows.meta} and calc
-		\draw[Circle - , color=mpldefaultblue] ($ (c) + (.78,1.6) $) -- ($ (b) + (-1.4,-.8) $);
-		\draw[Circle - , color=mpldefaultblue] ($ (c) + (1.38,1.6) $) -- ($ (b) + (1.6,-.8) $);
-		\draw[Circle - , color=mpldefaultblue] ($ (c) + (2.46,1.6) $) -- ($ (b) + (5,-.8) $);
+%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (-.45,1.6) $) -- ($ (b) + (-3.8,-.8) $); % requires \usetikzlibrary{arrows.meta} and calc
+%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (.78,1.6) $) -- ($ (b) + (-1.4,-.8) $);
+%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (1.38,1.6) $) -- ($ (b) + (1.6,-.8) $);
+%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (2.46,1.6) $) -- ($ (b) + (5,-.8) $);
 		
 		%\node[circle, draw] at (l1) {+};
 		
 		\end{tikzpicture}
+		
+		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}{Model-Driven Methods}
 		\begin{columns}
 			\column{.5\textwidth}
 				\resizebox{\textwidth}{!}{
@@ -251,24 +262,113 @@
 				\includegraphics[width=\textwidth]{images/example/jointplot}
 			
 		\end{columns}
+	
+		\begin{tikzpicture}
+			\tikzstyle{process} = [draw, rounded corners]
+			\node(x){input $\mathbf{X}$};
+			\node[process, right=of x](f){feature definition};
+			\node[process, right=of f](c){classification};
+			\node[right=of c](y){label $y$};
+			\draw[-Stealth](x) -- (f);
+			\draw[-Stealth](f) -- (c);
+			\draw[-Stealth](c) -- (y);
+			\node[below=0cm of f, font=\scriptsize](a){mean NDVI};
+			\node[below=0cm of a, font=\scriptsize](b){max NDVI after Sept};
+			
+			\node[below=0cm of c, font=\scriptsize](a){e.g., SVM, RF};
+		\end{tikzpicture}
 		
 	\end{frame}
 
-	\begin{frame}{Model-Driven Methods}
-		Feature Extraction		
-	\end{frame}
+	
+	\newcommand{\nn}{
+		\tikzstyle{proba} = [circle, draw=white, inner sep=2.5pt, fill=rouge]
+		\begin{tikzpicture}[scale=0.5, rotate=0, baseline=-.25em, minimum width=0cm, minimum height=0cm]
+		\node[proba](a0) at (0,-1){};
+		\node[proba](a1) at (0,0){};
+		\node[proba](a2) at (0,1){};
+		
+		\node[proba](b0) at (1,-0.5){};
+		\node[proba](b1) at (1,0.5){};
+		
+		\draw[-] (a0) -- (b0);
+		\draw[-] (a1) -- (b0);
+		\draw[-] (a2) -- (b0);
+		
+		\draw[-] (a0) -- (b1);
+		\draw[-] (a1) -- (b1);
+		\draw[-] (a2) -- (b1);
+		
+		%	\node[fit=(a0)(a2)(b1)](node name){};
+		
+		\end{tikzpicture}
+	}
 
 	\begin{frame}{Data-Driven Methods}
-		DNNs
+		
+		
+		\centering
+		
+		\begin{tikzpicture}
+			\tikzstyle{process} = [draw, rounded corners]
+			\node(x){input $\mathbf{X}$};
+			\node[process, right=of x](f){feature learning $f_\mathbf{\theta}$ \nn};
+			\node[right=of f](y){label $y$};
+			\draw[-Stealth](x) -- (f);
+			\draw[-Stealth](f) -- (y);
+		\end{tikzpicture}
+		
+		\vfill
+		
+		
+		\resizebox{\textwidth}{!}{
+			\input{tikzfigures/NN-transformations.tikz}
+		}
+		
 	\end{frame}
 		
-	\begin{frame}{Label Data in Abundance!}
-		DNNs
+	\begin{frame}{Domain and Task}
+		
+		\centering\begin{tikzpicture}
+			\tikzstyle{process} = [draw, rounded corners]
+			\node(x){input $\mathbf{X}$};
+			\node[process, right=of x](f){feature learning $f_\mathbf{\theta}$ \nn};
+			\node[right=of f](y){label $y$};
+			\draw[-Stealth](x) -- (f);
+			\draw[-Stealth](f) -- (y);
+		\end{tikzpicture}
+		
+		\vspace{2cm}
+		
+		\begin{tikzpicture}
+			\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
+			\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+		\end{tikzpicture}
+		\vfill\tiny
+		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
 	\end{frame}
 
-	\begin{frame}{Problem solved?}
-		content...
+	\begin{frame}
+		\frametitle{I.I.D assumption}
+		
+
+		
+		we use \textbf{independent}
+		\begin{align*}
+			\theta^\ast &= \arg\max_\theta \prod_{i} q(y_i \vert X_i)  \\
+			&= \arg\max_\theta \sum_{i} -y_i \log f_\theta(X_i)
+		\end{align*}
+		 and \textbf{identically} distributed (i.i.d) samples
+		 \begin{align}
+		 	X_i,y_i \sim p(X, Y)	
+		 \end{align}
+		 from a datasets
+		 \begin{align}
+		 	\{X_i,y_i\}_i^N
+		 \end{align}
+		
 	\end{frame}
+
 
 	\begin{frame}{Representation Shift}
 		\includegraphics[width=\textwidth]{images/countries_globe}

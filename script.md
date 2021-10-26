@@ -27,7 +27,24 @@ And in particular, the classification of vegetation touches three points:
 # Remote Sensing Data in Abundance
 
 Fortunately, today, we have satellite data in abundance.
-We have roughly access to three types of satellite products.
+Three categories of satellite products are available to us.
 * There is MODIS for global analyses with a detailed spectral resolution, but fairly coarse spatial resolution. Daily images are available but it is common to take the cloud-free 16-day composite instead.
 * For a regional scale, we have Sentinel-2 and Landsat satellites provide data for free at 30 minute resolution every few days with 13 spectral bands.
 * On a local scale, we can buy PlanetScope imagery that pushes the limits with 4 spectral bands at (potentially) daily resolution with 4 spectral bands thanks to a swarm of cube-sats.
+
+# Photosynthesis
+
+What we measure at each observation is the reflectance on a several spectral bands.
+We know that the chlorophyll of photosynthetically active plants absorb strongly in the red and blue wavelengths while the geometry of the leaf cells scatter light in near infrared wavelengths.
+This leads to a red edge effect where the ratio of near infrared reflectance to red absorbtion is a good indicator for photosynthetic activity.
+One spectral features that is widely used the the normalized difference vegetation index as shown below.
+
+# Time Series
+
+When we now look at all observations throughout the year, we can can see some class characteristic profiles, as shown here.
+Highlighted are are two meadow and corn fields in Germany on PlanetScope data in thick stroke. Other meadow and corn examples are plotted in thinner lines to see that there are differences between these two classes that we can exploit.
+
+# Classification
+
+An intuitive and conventional strategy for this corn-meadow classification would be to design features "mean-NDVI" throughout the year and "max NDVI after September".
+We effectively use our domain knowledge about the problem to design good features so that a comparatively generic classifier can separate the data in categories.
