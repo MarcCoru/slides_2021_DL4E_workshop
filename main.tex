@@ -304,7 +304,7 @@
 		\end{tikzpicture}
 	}
 
-	\begin{frame}{Data-Driven Methods}
+	\begin{frame}[t]{Data-Driven Methods}
 		
 		
 		\centering
@@ -318,16 +318,41 @@
 			\draw[-Stealth](f) -- (y);
 		\end{tikzpicture}
 		
-		\vfill
+		\vspace{1em}
 		
+		\raggedright
 		
-		\resizebox{\textwidth}{!}{
-			\input{tikzfigures/NN-transformations.tikz}
+		\only<1>{
+			\resizebox{\textwidth}{!}{
+				\input{tikzfigures/NN-transformations.tikz}
+			}
+		}
+		\only<2>{
+		\hspace{-1em} Search for suitable application-specific architecture
+			
+			\begin{columns}[t]
+				
+				\column{.5\textwidth}
+				
+				In general
+					\begin{itemize}
+						\item CNNs for images (e.g. ResNet50)
+						\item Transformers/RNNs for language (e.g. Bert)
+					\end{itemize}
+				\column{.5\textwidth}
+				
+				For crop type mapping
+				\begin{itemize}
+					\item CNNs 
+					\item RNNs 
+					\item Transformers
+				\end{itemize}
+			\end{columns}
 		}
 		
 	\end{frame}
-		
-	\begin{frame}{Domain and Task}
+
+	\begin{frame}[t]{Domain and Task}
 		
 		\centering\begin{tikzpicture}
 			\tikzstyle{process} = [draw, rounded corners]
@@ -338,14 +363,29 @@
 			\draw[-Stealth](f) -- (y);
 		\end{tikzpicture}
 		
-		\vspace{2cm}
+		\vspace{0.5cm}
 		
 		\begin{tikzpicture}
 			\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
 			\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+			
+			\node[below=of domain](xsample){$\mathbf{X} \sim P(\mathcal{X})$};
+			
+			\node[below=of task](ysample){$y = f(\mathbf{X})$};
+			
+			\draw[-Stealth] (domain) -- (xsample);
+			\draw[-Stealth] (xsample) -- node[midway, above, font=\tiny]{predictive function f} (ysample);
 		\end{tikzpicture}
 		\vfill\tiny
 		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+	\end{frame}
+
+	\begin{frame}
+		\includegraphics[width=.49\textwidth]{images/francecrops/frf1.png}
+		\includegraphics[width=.49\textwidth]{images/francecrops/fri1.png}
+		
+		\vspace{1em}
+		binary "wheat" vs "other cereals" classification
 	\end{frame}
 
 	\begin{frame}
