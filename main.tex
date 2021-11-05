@@ -389,14 +389,14 @@
 %			\node[right=of box, font]{Data Generation Model};
 
 			
-			\node[below=4em of label](datasampling){Dataset: $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+			\node[below=3em of label](datasampling){Dataset: $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$};
 			
 			\node[below=1em of datasampling](model){\featurelearningtikz};
 			
 		\end{tikzpicture}
 		\vfill\tiny
 		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
-		\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning}
+		\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
 		\citeapa{Shai Ben-David and Shai Shalev-Shwartz (2014). Understanding Machine Learning: From Theory to Algorithms}
 	\end{frame}
 
@@ -411,7 +411,7 @@
 		we need \textbf{independence} for the factorization in max likelihood.
 		\begin{align*}
 		\theta^\ast &= \arg\max_\theta \prod_{i} p(y_i \vert \mathbf{X}_i)  \\
-		&= \arg\max_\theta \sum_{i} -y_i \log f_\theta(\mathbf{X}_i)
+		&= \arg\min_\theta \sum_{i} -y_i \log f_\theta(\mathbf{X}_i)
 		\end{align*}
 		
 		\pause
@@ -425,7 +425,7 @@
 
 	\begin{frame}{In- and Out-of-Dist. Generalization}
 		
-		In Machine Learning, the I.I.D assumption is usually enforced via random splitting a single dataset $D$ into training and testing partitions
+		The I.I.D assumption is usually enforced via random splitting a single dataset $D$ into training and testing partitions
 		
 		\vspace{2em}
 		
@@ -505,13 +505,63 @@
 		\end{tikzpicture}
 	\end{frame}
 
-	\begin{frame}{Train on Each Dataset Separately}
+	\begin{frame}{Train/Test Dists are usually not identical}
 		
+		Examples
+		\begin{columns}[t]
+			\column{.5\textwidth}
+				
+				gender classification \\
+				{\scriptsize (Buolamwini \& Gebru, 2016)}
+				
+				\vspace{1em}
+				
+				\includegraphics[width=\textwidth]{images/BoulamwiniGebru2016}
+				
+				\vspace{1em}
+				
+				CV classifiers performed
+				\begin{itemize}
+					\item worst for darker females
+					\item best for lighter males
+				\end{itemize}
+			
+			\column{.5\textwidth}
+			
+				large language models
+				
+				\begin{itemize}
+					\item Trained on massive text datasets on the internet (e.g. Reddit).
+					\item deployed in everyday situations (e.g. drafting sport aricles/blog posts).
+				\end{itemize}
+			
+				Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
+			
+		\end{columns}
+		
+		\vfill
+	
+		\citeapa{Buolamwini, J., \& Gebru, T. (2018, January). Gender shades: Intersectional accuracy disparities in commercial gender classification. In Conference on fairness, accountability and transparency (pp. 77-91). PMLR.}
+		
+		\citeapa{Nadeem, M., Bethke, A., \& Reddy, S. (2020). Stereoset: Measuring stereotypical bias in pretrained language models. arXiv preprint arXiv:2004.09456.}
 	\end{frame}
 
-	\begin{frame}{Global Distributions change with $\lambda, \varphi, t$}
-		Dominant crop type (by color) in France: $P(y)$
-		\includegraphics[width=\textwidth]{images/france_crop_distribution}
+	\begin{frame}{Distributions shift with location and time}
+		\begin{columns}[t]
+			\column{.5\textwidth}
+			Dominant crop type (by color)
+			\includegraphics[width=\textwidth]{images/france_crop_distribution}
+			
+			\column{.5\textwidth}
+			\only<2>{
+			Max temp (23-30°C) 2018-08
+			\includegraphics[width=\textwidth]{images/france_tmmx_201808}
+			}
+			\only<3>{
+				Precipitation 2018-08
+				\includegraphics[width=\textwidth]{images/france_pr_201808}
+			}
+		\end{columns}
 	\end{frame}
 
 
@@ -521,30 +571,155 @@
 		
 		\vspace{1em}
 		binary "wheat" vs "other cereals" classification
+		
+		\vspace{1em}
+		{\small 
+			crop type time series classification with a simple 1D-CNN and 200 samples per class	in each NUTS-2 region
+		}
 	\end{frame}
 
 
 
-	\begin{frame}{Representation Shift}
+	\begin{frame}{Global Distribution Shift}
 		\includegraphics[width=\textwidth]{images/countries_globe}
+		
+		\vspace{0.5em}
+		
+		\scriptsize
+		Figure from
+		
+		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+		
+		\scriptsize
+		Data from
+		
+		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
 	
-	\begin{frame}{Domain and Task}
-		\begin{tikzpicture}
-		\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
-		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
-		\end{tikzpicture}
-		\vfill\tiny
-		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
-		¨
-	\end{frame}
+%	\begin{frame}{Domain and Task}
+%		\begin{tikzpicture}
+%		\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
+%		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+%		\end{tikzpicture}
+%		\vfill\tiny
+%		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+%		¨
+%	\end{frame}
 
-	\begin{frame}{Shift in Remote Sensing Data}
+	\begin{frame}{Global Distribution Shift}
 		\includegraphics[width=.9\textwidth]{images/Sen12ms_distribution_shift}
 		
-		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+		\scriptsize
+		Figure from
+		
+		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+		
+		\scriptsize
+		Data from
+		
+		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
 	
+	\begin{frame}{Improve on the target Task/Domain}
+		
+		Option 1) Just train on target data "random initialization"
+		
+		\vspace{2em}
+		
+		\begin{tikzpicture}
+		
+		{\color{perle}
+		\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dstrain){$D_\text{train}$};
+		\node at (1,-1)(dstest){$D_\text{test}$};
+		
+		\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+		\draw[-Stealth](ds) -- (dstest);
+		
+		\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Task/Domain\phantom{g}}]{};
+		}
+		
+		\begin{scope}[xshift=5cm]
+		\node(Q) at (0,0){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dsqtrain){$D_\text{train}$};
+		\node at (1,-1)(dsqtest){$D_\text{test}$};
+		\end{scope}
+		
+		\node[below=of dsqtrain, label={[font=\tiny]left:train model}] (weightsq) {$f_\theta$};
+		\draw[-Stealth] (dsqtrain) -- (weightsq);
+		
+		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
+		\draw[-Stealth](Q) -- (dsqtest);
+		
+		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Task/Domain}]{};
+		
+		\node[below=of dsqtest] (oodloss) {$\mathcal{L}$};
+%		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+%		
+		\draw[-Stealth] (weightsq) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+		\draw[-Stealth] (dsqtest) -- (oodloss);
+		
+		\end{tikzpicture}
+	\end{frame}
+
+	\begin{frame}{Improve on the target Task/Domain}
+		
+		Option 2) "Pretrain" on Source finetune on Target 
+		
+		\vspace{2em}
+		
+		\begin{tikzpicture}
+			\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+			\node at (-1,-1)(dstrain){$D_\text{train}$};
+			\node at (1,-1)(dstest){$D_\text{test}$};
+			
+			\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+			\draw[-Stealth](ds) -- (dstest);
+			
+			\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Task/Domain\phantom{g}}]{};
+			
+			\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
+			\draw[-Stealth] (dstrain) -- (weights);
+			
+%			\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
+			\draw[Stealth-] (dstest) -- node[midway, right, font=\tiny]{generalize in dist.} (weights);
+			\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{initialize} (weightsq);
+			
+		\begin{scope}[xshift=5cm]
+		\node(Q) at (0,0){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dsqtrain){$D_\text{train}$};
+		\node at (1,-1)(dsqtest){$D_\text{test}$};
+		\end{scope}
+		
+		\node[below=of dsqtrain] (weightsq) {$f_\theta$};
+		\draw[-Stealth] (dsqtrain) -- node[midway, left, font=\tiny]{finetune} (weightsq);
+		
+		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
+		\draw[-Stealth](Q) -- (dsqtest);
+		
+		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Task/Domain}]{};
+		
+		\node[below=of dsqtest] (oodloss) {$\mathcal{L}$};
+		%		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+		%		
+		\draw[-Stealth] (weightsq) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+		\draw[-Stealth] (dsqtest) -- (oodloss);
+		
+		\end{tikzpicture}
+		
+		\vfill
+		
+		{	\scriptsize
+			Side Note: "Transfer Learning aims to help improve the learning of the target predictive function $f_Q(\cdot)$ for the target domain using the knowledge in $\mathcal{D}_s$ and $\mathcal{T}_s$ where $\mathcal{D}_s \neq \mathcal{D}_t$ and $\mathcal{T}_s \neq \mathcal{T}_t$" \par
+		}
+		\vspace{.5em}
+			\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
+		
+	\end{frame}
+
+	\begin{frame}
+		
+	\end{frame}
 	
 	\begin{frame}{A Frame Title}
 		
