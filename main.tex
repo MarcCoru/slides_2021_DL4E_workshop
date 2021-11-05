@@ -4,18 +4,20 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
 \usetikzlibrary{calc,patterns,angles,quotes, fadings}
-\usetikzlibrary{decorations}
+\usetikzlibrary{decorations,fit}
 
 \usepackage{media9}
 \usepackage{amsmath}
 \usepackage[thicklines]{cancel}
 \usepackage{svg}
 \newcommand{\citeapa}[1]{ {\tiny#1\par} }
+%\usepackage{utf8}
+%\usepackage{fontspec}
 
 % primary colors
 \definecolor{tumblue}{RGB}{0,101,189} % Pantone 300
 \definecolor{tumorange}{RGB}{227,114,34} % Pantone 158 - Orange
-
+\setbeamercovered{transparent}
 
 \begin{document}
 	
@@ -304,11 +306,7 @@
 		\end{tikzpicture}
 	}
 
-	\begin{frame}[t]{Data-Driven Methods}
-		
-		
-		\centering
-		
+	\newcommand{\featurelearningtikz}{
 		\begin{tikzpicture}
 			\tikzstyle{process} = [draw, rounded corners]
 			\node(x){input $\mathbf{X}$};
@@ -317,18 +315,28 @@
 			\draw[-Stealth](x) -- (f);
 			\draw[-Stealth](f) -- (y);
 		\end{tikzpicture}
+	}
+
+	\begin{frame}[t]{Data-Driven Methods}
+		
+		
+		\centering
+		\featurelearningtikz
 		
 		\vspace{1em}
 		
 		\raggedright
 		
-		\only<1>{
-			\resizebox{\textwidth}{!}{
-				\input{tikzfigures/NN-transformations.tikz}
-			}
+		\resizebox{\textwidth}{!}{
+			\input{tikzfigures/NN-transformations.tikz}
 		}
-		\only<2>{
-		\hspace{-1em} Search for suitable application-specific architecture
+	\end{frame}
+
+	\begin{frame}[t]{Data-Driven Methods}
+		\centering
+		\featurelearningtikz
+		
+		\hspace{-1em} Search for suitable data-specific architecture
 			
 			\begin{columns}[t]
 				
@@ -348,39 +356,166 @@
 					\item Transformers
 				\end{itemize}
 			\end{columns}
-		}
 		
+		\vspace{2em}
+			\centering
+			{Data-driven deep learning models are very plastic and (blindly) learn to approximate target data.}\\
+			
+			\vspace{1em}
+			We need to think carefully how we sample and select data. 
+			
 	\end{frame}
 
-	\begin{frame}[t]{Domain and Task}
-		
-		\centering\begin{tikzpicture}
-			\tikzstyle{process} = [draw, rounded corners]
-			\node(x){input $\mathbf{X}$};
-			\node[process, right=of x](f){feature learning $f_\mathbf{\theta}$ \nn};
-			\node[right=of f](y){label $y$};
-			\draw[-Stealth](x) -- (f);
-			\draw[-Stealth](f) -- (y);
-		\end{tikzpicture}
-		
-		\vspace{0.5cm}
+	\newcommand{\iidsim}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d}}}{\sim}}}
+	\begin{frame}[t]{Data Generation Model}
+		\centering
+%		
+%		\featurelearningtikz
+%		
+%		\vspace{1em}
 		
 		\begin{tikzpicture}
-			\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
-			\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+			\node[label={[name=domainlabel]domain}](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
+			\node[label={[name=tasklabel]task}, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
 			
 			\node[below=of domain](xsample){$\mathbf{X} \sim P(\mathcal{X})$};
 			
 			\node[below=of task](ysample){$y = f(\mathbf{X})$};
 			
 			\draw[-Stealth] (domain) -- (xsample);
-			\draw[-Stealth] (xsample) -- node[midway, above, font=\tiny]{predictive function f} (ysample);
+			\draw[-Stealth] (xsample) -- node[midway, above, font=\tiny, name=label]{predictive function f} (ysample);
+			
+			\node[fit=(domain)(xsample)(task)(ysample)(domainlabel)(tasklabel), draw, rounded corners, label={[name=dgm, font=\small]below:(world) data generation model $P(\mathcal{X} \times \mathcal{Y})$}](box) {};
+%			\node[right=of box, font]{Data Generation Model};
+
+			
+			\node[below=4em of label](datasampling){Dataset: $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+			
+			\node[below=1em of datasampling](model){\featurelearningtikz};
+			
 		\end{tikzpicture}
 		\vfill\tiny
 		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+		\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning}
+		\citeapa{Shai Ben-David and Shai Shalev-Shwartz (2014). Understanding Machine Learning: From Theory to Algorithms}
 	\end{frame}
 
+	
 	\begin{frame}
+		\frametitle{I.I.D assumption}
+		
+		we use a dataset $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$ of \textbf{independently} and and \textbf{identically} distributed (i.i.d) samples.
+		\vspace{1em}
+		
+		\pause
+		we need \textbf{independence} for the factorization in max likelihood.
+		\begin{align*}
+		\theta^\ast &= \arg\max_\theta \prod_{i} p(y_i \vert \mathbf{X}_i)  \\
+		&= \arg\max_\theta \sum_{i} -y_i \log f_\theta(\mathbf{X}_i)
+		\end{align*}
+		
+		\pause
+		we assume an \textbf{identical distribution} $P(\mathcal{X} \times \mathcal{Y})$ throughout the entire data generation { \scriptsize (and particularly between training and test time) }
+		\begin{align}
+		X_i,y_i \iidsim P(\mathcal{X} \times \mathcal{Y})
+		\end{align}
+		which implies identical domains $\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$ and tasks $\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$ during training and test time.
+		
+	\end{frame}
+
+	\begin{frame}{In- and Out-of-Dist. Generalization}
+		
+		In Machine Learning, the I.I.D assumption is usually enforced via random splitting a single dataset $D$ into training and testing partitions
+		
+		\vspace{2em}
+		
+		\begin{tikzpicture}
+			\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+			\node at (-1,-1)(dstrain){$D_\text{train}$};
+			\node at (1,-1)(dstest){$D_\text{test}$};
+			
+			\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+			\draw[-Stealth](ds) -- (dstest);
+			
+			\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: I.I.D Machine Learning}]{};
+			
+			\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
+			\draw[-Stealth] (dstrain) -- (weights);
+			
+			\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
+			\draw[-Stealth] (dstest) -- (testloss);
+			\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{compare with $f(\cdot)$} (testloss);
+			
+			\node[below=0em of testloss, text width=2cm, font=\scriptsize](tllabel){"in-domain" or "in-distribution" generalization};
+			
+			\visible<2->{
+				\node[right=5em of ds](Q){$\mathbf{X},y \sim Q(\mathcal{X} \times \mathcal{Y})$};
+				
+				\node[below=0em of Q](domain){$\mathcal{D}_Q = \{\mathcal{X}, P_Q(\mathcal{X})\}$};
+				\node[below=-.5em of domain](task){$\mathcal{T}_Q = \{\mathcal{Y}, f_Q(\cdot)\}$};
+				
+				\node[rounded corners, fit=(Q)(domain)(task), label={above: Data of another distribution\phantom{g}}]{};
+				
+				\node[right=8em of testloss] (oodloss) {$\mathcal{L}_\text{out}$};
+				\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+				
+				\draw[-Stealth] (testloss) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+				\draw[-Stealth] (task) -- (oodloss);
+			}
+		\end{tikzpicture}
+	\end{frame}
+
+	\begin{frame}{Measuring OOD Generalization}
+		\begin{tikzpicture}
+		\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dstrain){$D_\text{train}$};
+		\node at (1,-1)(dstest){$D_\text{test}$};
+		
+		\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+		\draw[-Stealth](ds) -- (dstest);
+		
+		\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Task/Domain\phantom{g}}]{};
+		
+		\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
+		\draw[-Stealth] (dstrain) -- (weights);
+		
+		\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
+		\draw[-Stealth] (dstest) -- (testloss);
+		\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{compare with $f(\cdot)$} (testloss);
+		
+		\node[below=0em of testloss, text width=2cm, font=\scriptsize](tllabel){"in-domain" or "in-distribution" generalization};
+		
+		\begin{scope}[xshift=5cm]
+			\node(Q) at (0,0){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+			\node at (-1,-1)(dsqtrain){$D_\text{train}$};
+			\node at (1,-1)(dsqtest){$D_\text{test}$};
+		\end{scope}
+		
+		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
+		\draw[-Stealth](Q) -- (dsqtest);
+		
+		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Task/Domain}]{};
+		
+		\node[below=of dsqtest] (oodloss) {$\mathcal{L}_\text{out}$};
+		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+		
+		\draw[-Stealth] (testloss) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+		\draw[-Stealth] (dsqtest) -- (oodloss);
+		
+		\end{tikzpicture}
+	\end{frame}
+
+	\begin{frame}{Train on Each Dataset Separately}
+		
+	\end{frame}
+
+	\begin{frame}{Global Distributions change with $\lambda, \varphi, t$}
+		Dominant crop type (by color) in France: $P(y)$
+		\includegraphics[width=\textwidth]{images/france_crop_distribution}
+	\end{frame}
+
+
+	\begin{frame}{Toy Example: "wheat" vs "other cereals"}
 		\includegraphics[width=.49\textwidth]{images/francecrops/frf1.png}
 		\includegraphics[width=.49\textwidth]{images/francecrops/fri1.png}
 		
@@ -388,26 +523,6 @@
 		binary "wheat" vs "other cereals" classification
 	\end{frame}
 
-	\begin{frame}
-		\frametitle{I.I.D assumption}
-		
-
-		
-		we use \textbf{independent}
-		\begin{align*}
-			\theta^\ast &= \arg\max_\theta \prod_{i} q(y_i \vert X_i)  \\
-			&= \arg\max_\theta \sum_{i} -y_i \log f_\theta(X_i)
-		\end{align*}
-		 and \textbf{identically} distributed (i.i.d) samples
-		 \begin{align}
-		 	X_i,y_i \sim p(X, Y)	
-		 \end{align}
-		 from a datasets
-		 \begin{align}
-		 	\{X_i,y_i\}_i^N
-		 \end{align}
-		
-	\end{frame}
 
 
 	\begin{frame}{Representation Shift}
@@ -421,7 +536,7 @@
 		\end{tikzpicture}
 		\vfill\tiny
 		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
-		
+		¨
 	\end{frame}
 
 	\begin{frame}{Shift in Remote Sensing Data}
