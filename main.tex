@@ -13,6 +13,10 @@
 \newcommand{\citeapa}[1]{ {\tiny#1\par} }
 %\usepackage{utf8}
 %\usepackage{fontspec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
 
 % primary colors
 \definecolor{tumblue}{RGB}{0,101,189} % Pantone 300
@@ -813,6 +817,101 @@
 		\citeapa{Finn, C., Abbeel, P., \& Levine, S. (2017, July). Model-agnostic meta-learning for fast adaptation of deep networks. In International Conference on Machine Learning (pp. 1126-1135). PMLR.}
 		
 	\end{frame}
+
+	\begin{frame}
+		\begin{tikzpicture}
+			
+			\node (metaparameters) at (0,0){$\theta^\ast$};
+			
+			\visible<1>{
+				\node[circle,outer color=white,inner color=montrose](a) at (3,2){$D_1 \iidsim P_1(\mathcal{X} \times \mathcal{Y})$};
+				\node[circle,outer color=white,inner color=acier](b) at (6,0){$D_2 \iidsim P_2(\mathcal{X} \times \mathcal{Y})$};
+				\node[circle,outer color=white,inner color=vertedeau](c) at (3,-2){$D_3 \iidsim P_3(\mathcal{X} \times \mathcal{Y})$};
+			}
+			\visible<2>{
+				\node[circle,outer color=white,inner color=EPFLred](c) at (5,-2){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+			}
+			
+			\node (metaparameters) at (1,0){$\theta^\ast$};
+			
+		\end{tikzpicture}
+	\end{frame}
+
+%	\begin{frame}
+%%		\begin{algorithm}[t]
+%			\SetAlgoLined
+%			$p(\mathcal{T})$: distribution over tasks\; $\alpha, \beta$: step size hyperparameters\;
+%			randomly initialize $\theta$\;
+%			\Repeat{convergence}{
+%				sample batch of tasks $\tau \sim p(\mathcal{T})$\;
+%				\ForEach{$\tau_{i} \in \tau$}{
+%					initialize $\phi_{i}$ with $\theta$\;
+%					sample $\{{D}_\text{support}, {D}_\text{query}\} \sim p(\tau_i)$\;
+%					%\For{$k$ steps}{
+%					evaluate $\V{g}=\nabla_{\phi_{i}}\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{support})$\;% with respect to $k$ examples\;
+%					adapt parameters $\phi_{i} \leftarrow \phi_{i} - \alpha\V{g}$\;
+%					%}
+%					evaluate test loss $\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{query})$ \;
+%				}{
+%					update $\theta \leftarrow \theta - \beta \sum_{\tau_{i} \sim p(\tau)} \nabla_{\theta}\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{query}^{\tau_i})$\;
+%				}
+%			}
+%%			\caption{Model-Agnostic Meta-Learning}
+%%			\label{alg:maml}
+%%		\end{algorithm}
+%	\end{frame}
+
+	\begin{frame}{Sen12MS-Land Cover Classification}
+		\begin{tikzpicture}
+			\node(a) at (0,0){\includegraphics[width=8cm]{images/sen12ms_metasplit}};
+			\node[left=-1em of a]{\includegraphics[width=4cm]{images/rgb_fold_overlayed}};
+		\end{tikzpicture}
+		
+		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
+		
+	\end{frame}
+
+	\begin{frame}{2-shot 4-way Few-shot Task}
+		\only<1>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat0}}
+		\only<2>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat2}}
+	\end{frame}
+
+	\begin{frame}{Results on Sen12MS}
+		\scriptsize
+		\begin{tabular}{llrrr}
+			\toprule
+			& training algorithm & accuracy & $\kappa$ \\
+			\cmidrule(lr){1-1}\cmidrule(lr){2-2}\cmidrule(lr){3-3}\cmidrule(lr){4-4}\cmidrule(lr){5-5}
+			\multirow{4}{*}{Meta-Learning} & MAML & 0.808 & 0.744 \\
+			& MAML++  & 0.810 & 0.747 \\
+			& Fo-MAML  & 0.813 & 0.751 \\
+			& Prototypical Network  & 0.748 & 0.664 \\
+			\cmidrule(lr){1-2}
+			\multirow{2}{*}{Regular SGD} & pretrained & 0.606 & 0.536 \\ % EV paper sen12ms_classification 2shot 4 way
+			& random initialization & 0.255 & 0.007 \\
+			\cmidrule(lr){1-2}
+			\multirow{4}{*}{comparison} & human (best) & 0.77 & 0.69 \\
+			& human (best 25\%) & 0.74 & 0.65 \\
+			& human (median) & 0.60 & 0.47 &\\
+			%		& human (worst 25\%) & 0.48 & 0.30 &\\
+			& random guess & 0.25 & 0 \\
+			\bottomrule
+
+			
+
+		\end{tabular}
+	
+		2D CNN classifier
+	
+		2-shot 4-way
+	\end{frame}
+
+	\begin{frame}{Takeaways MAML}
+		\begin{itemize}
+			\item Outperformed humans 
+			\item 
+		\end{itemize}
+	\end{frame}
 	
 	\begin{frame}{A Frame Title}
 		
@@ -843,12 +942,12 @@
 	\end{frame}
 
 		
-		\begin{frame}<presentation:9,13,14,15>%1-9,
-			\frametitle{Deep Neural Networks}
-			\centering
-			
-			\input{tikzfigures/neuralnetwork.tikz}
-	\end{frame}
+%		\begin{frame}<presentation:9,13,14,15>%1-9,
+%			\frametitle{Deep Neural Networks}
+%			\centering
+%			
+%			\input{tikzfigures/neuralnetwork.tikz}
+%	\end{frame}
 
 	\begin{frame}{Colors}
 		\centering
