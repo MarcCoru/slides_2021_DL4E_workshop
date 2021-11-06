@@ -439,9 +439,10 @@
 			
 			\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: I.I.D Machine Learning}]{};
 			
-			\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
+			\node[below=of dstrain, label={[font=\tiny]below:train model}] (weights) {$f_\theta$};
 			\draw[-Stealth] (dstrain) -- (weights);
-			
+
+
 			\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
 			\draw[-Stealth] (dstest) -- (testloss);
 			\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{compare with $f(\cdot)$} (testloss);
@@ -708,16 +709,108 @@
 		\end{tikzpicture}
 		
 		\vfill
-		
-		{	\scriptsize
-			Side Note: "Transfer Learning aims to help improve the learning of the target predictive function $f_Q(\cdot)$ for the target domain using the knowledge in $\mathcal{D}_s$ and $\mathcal{T}_s$ where $\mathcal{D}_s \neq \mathcal{D}_t$ and $\mathcal{T}_s \neq \mathcal{T}_t$" \par
+		\only<1>{
+			{	\scriptsize
+				Side Note: "Transfer Learning aims to help improve the learning of the target predictive function $f_Q(\cdot)$ for the target domain using the knowledge in $\mathcal{D}_s$ and $\mathcal{T}_s$ where $\mathcal{D}_s \neq \mathcal{D}_t$ and $\mathcal{T}_s \neq \mathcal{T}_t$" \par
+			}
+			\vspace{.5em}
+				\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
 		}
-		\vspace{.5em}
-			\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
-		
+		\only<2>{
+			{	\scriptsize
+				Side-Note 2: Examples of recent methods for crop type mapping.
+				
+				\vspace{.5em}
+				
+				\citeapa{Lucas, B., Pelletier, C., Schmidt, D., Webb, G. I., \& Petitjean, F. (2021). A Bayesian-inspired, deep learning-based, semi-supervised domain adaptation technique for land cover mapping. Machine Learning, 1-33.}
+				
+				\vspace{.5em}
+				
+				\citeapa{Joachim Nyborg, Charlotte Pelletier, Sébastien Lefèvre \& Ira Assent (2021). TimeMatch: Unsupervised Cross-Region Adaptation by Temporal Shift Estimation. Preprint}
+			}
+		}
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}{Improve on the target Task/Domain}
+		
+		Option 3) ML framework that allows not ident. joint dists \\
+		
+		and in particular Model-Agnostic Meta-Learning \\ {\scriptsize (Finn et al., 2017)}.
+		
+		\vspace{1em}
+		
+		\begin{tikzpicture}
+		\node(ds) at (0,0){$D \iidsim P_i(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dstrain){$D_\text{train}$};
+		\node at (1,-1)(dstest){$D_\text{test}$};
+		
+		\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+		\draw[-Stealth](ds) -- (dstest);
+		
+		\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Tasks/Domains\phantom{g}}](box){};
+		\foreach \d in {0.05,0.1,0.15,0.2}
+		{
+			\draw[draw, rounded corners] ($(box.south west)+(\d,-\d)$) -- ($(box.south east)+(\d,-\d)$) -- ($(box.north east)+(\d,-\d)$);
+		}
+		
+		\node[below=of dstrain] (weights) {$f_{\theta_i}$};
+		\draw[-Stealth] (dstrain) -- node[midway, left, font=\tiny]{finetune} (weights);
+		
+		%
+					
+		\node[left=of weights, label={[font=\tiny]below:meta-weights}] (metaweights) {$\theta^\ast$};
+		\draw[-Stealth] (metaweights) --node[midway, below, font=\tiny]{initialize} (weights);
+		
+		%			\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
+		\draw[Stealth-] (dstest) -- node[midway, right, font=\tiny, name=testgen]{generalize in dist.} (weights);
+
+		\visible<2>{
+			\draw[-Stealth, draw=EPFLred] (testgen) to [bend left=45] node[midway, below right, font=\tiny, text=EPFLred, text width=3cm]{update meta weights \\ over a batch of tasks/domains} (metaweights);
+%			\draw[-Stealth]($(dstrain.south)+(.1,-.1)$) -- ($(weights.north)+(.1,-.05)$);
+%			\draw[-Stealth]($(dstrain.south)+(.2,-.2)$) -- ($(weights.north)+(.2,-.1)$);
+%			
+%			\draw[-Stealth]($(weights.north east)+(.1,0)$) -- ($(dstest.south west)+(.1,0)$);
+%			\draw[-Stealth]($(weights.north east)+(.2,0)$) -- ($(dstest.south west)+(.2,0)$);
+		}	
+		
+		\only<1-2>{
+			\color{perle}
+		}
+		\only<3->{
+			\color{black}
+			\draw[-Stealth] (metaweights) to[bend right=10] node[midway,above,font=\tiny]{initialize} (weightsq);
+		}
+	
+		
+		\begin{scope}[xshift=5cm]
+		\node(Q) at (0,0){$D \iidsim Q_j(\mathcal{X} \times \mathcal{Y})$};
+		\node at (-1,-1)(dsqtrain){$D_\text{train}$};
+		\node at (1,-1)(dsqtest){$D_\text{test}$};
+		\end{scope}
+		
+		\node[below=of dsqtrain] (weightsq) {$f_\theta$};
+		\draw[-Stealth] (dsqtrain) -- node[midway, left, font=\tiny]{finetune} (weightsq);
+		
+		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
+		\draw[-Stealth](Q) -- (dsqtest);
+		
+		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Tasks/Domains}](box){};
+		
+		\foreach \d in {0.05,0.1,0.15,0.2}
+		{
+			\draw[draw, rounded corners] ($(box.south west)+(\d,-\d)$) -- ($(box.south east)+(\d,-\d)$) -- ($(box.north east)+(\d,-\d)$);
+		}
+		
+		\node[below=of dsqtest] (oodloss) {$\mathcal{L}$};
+		%		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+		%		
+		\draw[-Stealth] (weightsq) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+		\draw[-Stealth] (dsqtest) -- (oodloss);
+		
+		\end{tikzpicture}
+		
+		\vfill
+		\citeapa{Finn, C., Abbeel, P., \& Levine, S. (2017, July). Model-agnostic meta-learning for fast adaptation of deep networks. In International Conference on Machine Learning (pp. 1126-1135). PMLR.}
 		
 	\end{frame}
 	
