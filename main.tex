@@ -26,15 +26,15 @@
 \begin{document}
 	
 	\title{Data-Driven Vegetation Modeling and Tackling Representation Shift}
-	\subtitle{with Few-Shot Meta-Learning Methods}
-	\author{Marc Russwurm}
+	\subtitle{with Few-Shot Meta-Learning}
+	\author{Marc Ru\ss{}wurm}
 	\labname{EPFL-ECEO}
 	\date{\today}
 	
 	\logofilename{epfl/epfl_red.png}
 	\titlepageimage{epfl/lacleman}
 	\event{Deep Learning for Environment}
-	\presentation{Representation Shift and Few-Shot Meta-Learning Methods}
+	\presentation{Representation Shift and Few-Shot Meta-Learning}
 	\speaker{Marc Russwurm}
 	
 	\begin{frame}[plain]
@@ -63,15 +63,23 @@
 		
 	\end{frame}
 
-	\begin{frame}{Vegetation Modeling}
-		\begin{tikzpicture}
-			\node[fill=EPFLred, inner sep=1em, text=white, font=\bfseries]{Vegetation Modeling};
-		\end{tikzpicture}
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+			Why do we need Vegetation Modeling?
+			\\
+			What do we measure?
+			\\
+			What data do we have available?
+			
+			
+		\hfill
 	\end{frame}
 
-
 	\begin{frame}
-		\frametitle{Why do we want to classify vegetation?}
+		\frametitle{Why do we need Vegetation Modeling?}
 		\begin{columns}
 			\column{.5\textwidth}
 			{\scriptsize
@@ -221,6 +229,15 @@
 		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
 	\end{frame}
 
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+		Data and Model-Driven Models
+		\hfill
+	\end{frame}
+
 	\begin{frame}{Model-Driven Methods}
 		\begin{columns}
 			\column{.5\textwidth}
@@ -340,35 +357,53 @@
 		\centering
 		\featurelearningtikz
 		
+		\raggedright
 		\hspace{-1em} Search for suitable data-specific architecture
 			
-			\begin{columns}[t]
+			{ 
+%				\begin{columns}[t]
+					
+%					\column{.5\textwidth}
+					
+					\vspace{1em}
+					
+					In general
+						\begin{itemize}
+							\item CNNs for images (e.g. ResNet50)
+							\item Transformers for language (e.g. Bert)
+							\item RNNs for state-memory problems (e.g. hydrological modeling).
+						\end{itemize}
+%					\column{.5\textwidth}
+					
+%					For crop type mapping
+%					\begin{itemize}
+%						\item CNNs 
+%						\item RNNs 
+%						\item Transformers
+%					\end{itemize}
 				
-				\column{.5\textwidth}
-				
-				In general
-					\begin{itemize}
-						\item CNNs for images (e.g. ResNet50)
-						\item Transformers/RNNs for language (e.g. Bert)
-					\end{itemize}
-				\column{.5\textwidth}
-				
-				For crop type mapping
-				\begin{itemize}
-					\item CNNs 
-					\item RNNs 
-					\item Transformers
-				\end{itemize}
-			\end{columns}
-		
+%				\end{columns}
+			}
+		\pause
 		\vspace{2em}
-			\centering
+			\raggedright
 			{Data-driven deep learning models are very plastic and (blindly) learn to approximate target data.}\\
-			
+			\pause
 			\vspace{1em}
-			We need to think carefully how we sample and select data. 
+			We need to \textbf{think carefully} how \textbf{we sample} and \textbf{select data}. 
 			
 	\end{frame}
+
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+		What assumptions do we take in Machine Learning?
+		
+		
+		\hfill
+\end{frame}
 
 	\newcommand{\iidsim}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily i.i.d}}}{\sim}}}
 	\begin{frame}[t]{Data Generation Model}
@@ -411,7 +446,7 @@
 		we use a dataset $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$ of \textbf{independently} and and \textbf{identically} distributed (i.i.d) samples.
 		\vspace{1em}
 		
-		\pause
+%		\pause
 		we need \textbf{independence} for the factorization in max likelihood.
 		\begin{align*}
 		\theta^\ast &= \arg\max_\theta \prod_{i} p(y_i \vert \mathbf{X}_i)  \\
@@ -419,7 +454,7 @@
 		\end{align*}
 		
 		\pause
-		we assume an \textbf{identical distribution} $P(\mathcal{X} \times \mathcal{Y})$ throughout the entire data generation { \scriptsize (and particularly between training and test time) }
+		we assume an \textbf{identical} (joint) \textbf{distribution} $P(\mathcal{X} \times \mathcal{Y})$ throughout the entire data generation { \scriptsize (and particularly between training and test time) }
 		\begin{align}
 		X_i,y_i \iidsim P(\mathcal{X} \times \mathcal{Y})
 		\end{align}
@@ -510,6 +545,20 @@
 		\end{tikzpicture}
 	\end{frame}
 
+
+	\begin{frame}[plain]
+		\centering
+		\hfill
+			\Large
+			
+			Is that really a problem?
+			
+			\vspace{1em}
+			Are training and testing distributions identical in real world applications?
+			
+		\hfill
+	\end{frame}
+
 	\begin{frame}{Train/Test Dists are usually not identical}
 		
 		Examples
@@ -536,8 +585,8 @@
 				large language models
 				
 				\begin{itemize}
-					\item Trained on massive text datasets on the internet (e.g. Reddit).
-					\item deployed in everyday situations (e.g. drafting sport aricles/blog posts).
+					\item Trained on massive text datasets on the internet (e.g. Reddit, News, Blogs).
+					\item deployed in everyday situations (e.g. chat bots,  drafting blog posts).
 				\end{itemize}
 			
 				Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
@@ -551,6 +600,7 @@
 		\citeapa{Nadeem, M., Bethke, A., \& Reddy, S. (2020). Stereoset: Measuring stereotypical bias in pretrained language models. arXiv preprint arXiv:2004.09456.}
 	\end{frame}
 
+
 	\begin{frame}{Distributions shift with location and time}
 		\begin{columns}[t]
 			\column{.5\textwidth}
@@ -558,11 +608,11 @@
 			\includegraphics[width=\textwidth]{images/france_crop_distribution}
 			
 			\column{.5\textwidth}
-			\only<2>{
+			\only<1>{
 			Max temp (23-30°C) 2018-08
 			\includegraphics[width=\textwidth]{images/france_tmmx_201808}
 			}
-			\only<3>{
+			\only<2>{
 				Precipitation 2018-08
 				\includegraphics[width=\textwidth]{images/france_pr_201808}
 			}
@@ -624,10 +674,23 @@
 		
 		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
+
+
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+		End Interlude: \\ 
+		
+		\vspace{1em}
+		How to improve on target Tasks/Domains?
+		\hfill
+	\end{frame}
 	
 	\begin{frame}{Improve on the target Task/Domain}
 		
-		Option 1) Just train on target data "random initialization"
+		Option 1) Just train on target data {\scriptsize (we will call "random initialization")}
 		
 		\vspace{2em}
 		
@@ -666,6 +729,7 @@
 		
 		\end{tikzpicture}
 	\end{frame}
+
 
 	\begin{frame}{Improve on the target Task/Domain}
 		
@@ -818,60 +882,209 @@
 		
 	\end{frame}
 
-	\begin{frame}
-		\begin{tikzpicture}
+	\begin{frame}{A Visual Comparison}
+		
+		\tikzfading[name = dist fading,
+		inner color = transparent!0,
+		outer color = transparent!100]
+		
+		\tikzstyle{dist} = [font=\tiny, path fading = dist fading, inner sep=2em]
+		
+		
+		\scriptsize
+		\begin{columns}[t]
+			\column{.33\textwidth}
+			Random Initialization
 			
-			\node (metaparameters) at (0,0){$\theta^\ast$};
+			\begin{tikzpicture}[scale=0.5]
 			
-			\visible<1>{
-				\node[circle,outer color=white,inner color=montrose](a) at (3,2){$D_1 \iidsim P_1(\mathcal{X} \times \mathcal{Y})$};
-				\node[circle,outer color=white,inner color=acier](b) at (6,0){$D_2 \iidsim P_2(\mathcal{X} \times \mathcal{Y})$};
-				\node[circle,outer color=white,inner color=vertedeau](c) at (3,-2){$D_3 \iidsim P_3(\mathcal{X} \times \mathcal{Y})$};
+				\visible<1-7>{
+					\node (metaparameters) at (1,0){$\theta^\text{rand}$};
+					
+					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+				}
+				
+				\visible<8>{	
+					
+					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+%					
+					\node (p) at (1,0){$\theta^\text{rand}$};
+					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+					
+					\draw[-Stealth] (p) -- (q);
+				}
+			\end{tikzpicture}
+			\visible<8>{
+				\textbf{random} baseline
 			}
-			\visible<2>{
-				\node[circle,outer color=white,inner color=EPFLred](c) at (5,-2){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+		
+			\column{.33\textwidth}
+			Pretrained Initialization
+			
+			\begin{tikzpicture}[scale=0.5]
+			
+				\visible<1-7>{
+					\node[dist, inner color=rouge](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=rouge](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=rouge](c) at (3,-2){$f_{P_3}$};
+				}
+			
+				\visible<1-2>{
+					\node (p) at (1,0){$\theta^\text{rand}$};
+					
+					\draw[-Stealth] (p) -- (a.center);
+					\draw[-Stealth] (p) -- (b.center);
+					\draw[-Stealth] (p) -- (c.center);
+				}
+			
+				\visible<2>{
+					\draw[-Stealth, rouge] (a.center) to[bend left=25] (p);
+					\draw[-Stealth, rouge] (b.center) to[bend left=15] (p);
+					\draw[-Stealth, rouge] (c.center) to[bend left=25] (p);	
+				}
+			
+				\visible<3>{
+					\node (p) at (1,0){$\theta^\text{rand.}$};
+					\node (p2) at (4,0){$\theta^\text{pretr.}$};
+					\draw[-Stealth] (p) -- node[midway, above, font=\tiny]{SGD} (p2);
+				}
+				
+				\visible<7>{
+					\node (p) at (4,0){$\theta^\text{pretr.}$};
+					\draw[-Stealth] (p) -- (a.center);
+					\draw[-Stealth] (p) -- (b.center);
+					\draw[-Stealth] (p) -- (c.center);
+				}
+			
+				\visible<8>{	
+					
+					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+					
+					\node (p) at (4,0){$\theta^\text{pretrained}$};
+					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+					
+					\draw[-Stealth] (p) -- (q);
+				}
+				
+			\end{tikzpicture}
+			\visible<8>{
+				Optimized \textbf{to perform} well on source distributions
+				}
+		
+			\column{.33\textwidth}
+			Meta-Learned Initialization
+			
+			\begin{tikzpicture}[scale=0.5]
+			
+				\visible<1-7>{
+					\node[dist, inner color=rouge](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=canard](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=grosseille](c) at (3,-2){$f_{P_3}$};
+				}
+				
+				\visible<1-2>{
+					\node (p) at (1,0){$\theta^\text{rand}$};
+					
+					\draw[-Stealth] (p) -- (a.center);
+					\draw[-Stealth] (p) -- (b.center);
+					\draw[-Stealth] (p) -- (c.center);
+				}
+				
+				\visible<2>{
+					\draw[-Stealth, rouge] (a.center) to[bend left=25] (p);
+					\draw[-Stealth, rouge] (b.center) to[bend left=15] (p);
+					\draw[-Stealth, rouge] (c.center) to[bend left=25] (p);	
+				}
+			
+				\visible<3>{
+					\node (p) at (1,0){$\theta^\text{rand}$};
+					
+					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\theta_1$};
+					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\theta_2$};
+					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\theta_3$};
+					
+					\draw[-Stealth] (p) -- node[midway, left, font=\tiny]{SGD} (pa);
+					\draw[-Stealth] (p) -- (pb);
+					\draw[-Stealth] (p) -- (pc);
+				}
+			
+				\visible<4-6>{
+					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\theta_1$};
+					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\theta_2$};
+					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\theta_3$};
+					
+					\draw[-Stealth] (pa) -- (a.center);
+					\draw[-Stealth] (pb) -- (b.center);
+					\draw[-Stealth] (pc) -- (c.center);
+				}
+			
+				\visible<5-6>{
+					\draw[-Stealth, rouge] (a.center) to[bend left=25] (pa);
+					\draw[-Stealth, rouge] (b.center) to[bend left=25] (pb);
+					\draw[-Stealth, rouge] (c.center) to[bend left=25] node[midway, left, font=\tiny]{inner loop} (pc);
+				}
+			
+				\visible<6>{
+					\node (p) at (1,0){$\theta$};
+					
+					\draw[-Stealth, rouge] (pa) to (p);
+					\draw[-Stealth, rouge] (pb) to (p);
+					\draw[-Stealth, rouge] (pc) to node[midway, left, font=\tiny]{outer loop} (p);
+				}
+			
+				\visible<7>{
+					\node (p) at (4,0){$\theta^\text{meta}$};
+					
+					\node[inner sep=0em] (pa) at ($(p)!0.75!(a)$) {$\theta_1$};
+					\node[inner sep=0em] (pb) at ($(p)!0.75!(b)$) {$\theta_2$};
+					\node[inner sep=0em] (pc) at ($(p)!0.75!(c)$) {$\theta_3$};
+					
+					\draw[-Stealth] (p) -- (pa);
+					\draw[-Stealth] (p) -- (pb);
+					\draw[-Stealth] (p) -- (pc);
+					
+					\draw[-Stealth] (pa) -- (a.center);
+					\draw[-Stealth] (pb) -- (b.center);
+					\draw[-Stealth] (pc) -- (c.center);
+				}
+			
+				\visible<8>{	
+					
+					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+					
+					\node (p) at (4,0){$\theta^\text{meta}$};
+					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+					
+					\draw[-Stealth] (p) -- (q);
+				}
+				
+			\end{tikzpicture}
+			\visible<8>{
+			Optimized \textbf{to adapt} well to source distributions
 			}
 			
-			\node (metaparameters) at (1,0){$\theta^\ast$};
-			
-		\end{tikzpicture}
-	\end{frame}
+		\end{columns}
 
-%	\begin{frame}
-%%		\begin{algorithm}[t]
-%			\SetAlgoLined
-%			$p(\mathcal{T})$: distribution over tasks\; $\alpha, \beta$: step size hyperparameters\;
-%			randomly initialize $\theta$\;
-%			\Repeat{convergence}{
-%				sample batch of tasks $\tau \sim p(\mathcal{T})$\;
-%				\ForEach{$\tau_{i} \in \tau$}{
-%					initialize $\phi_{i}$ with $\theta$\;
-%					sample $\{{D}_\text{support}, {D}_\text{query}\} \sim p(\tau_i)$\;
-%					%\For{$k$ steps}{
-%					evaluate $\V{g}=\nabla_{\phi_{i}}\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{support})$\;% with respect to $k$ examples\;
-%					adapt parameters $\phi_{i} \leftarrow \phi_{i} - \alpha\V{g}$\;
-%					%}
-%					evaluate test loss $\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{query})$ \;
-%				}{
-%					update $\theta \leftarrow \theta - \beta \sum_{\tau_{i} \sim p(\tau)} \nabla_{\theta}\mathcal{L}_{\tau_{i}}(f_{\phi_{i}},{D}_\text{query}^{\tau_i})$\;
-%				}
-%			}
-%%			\caption{Model-Agnostic Meta-Learning}
-%%			\label{alg:maml}
-%%		\end{algorithm}
-%	\end{frame}
+	\end{frame}
 
 	\begin{frame}{Sen12MS-Land Cover Classification}
 		\begin{tikzpicture}
 			\node(a) at (0,0){\includegraphics[width=8cm]{images/sen12ms_metasplit}};
-			\node[left=-1em of a]{\includegraphics[width=4cm]{images/rgb_fold_overlayed}};
+			\node[left=-2em of a]{\includegraphics[width=3cm]{images/rgb_fold_overlayed}};
 		\end{tikzpicture}
 		
 		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
-		
 	\end{frame}
 
-	\begin{frame}{2-shot 4-way Few-shot Task}
+	\begin{frame}{2-shot 4-way Few-Shot Task}
 		\only<1>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat0}}
 		\only<2>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat2}}
 	\end{frame}
