@@ -2,6 +2,11 @@
 
 \usetheme{epfl}
 \usepackage{tikz}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+
 \usetikzlibrary{positioning,arrows.meta}
 \usetikzlibrary{calc,patterns,angles,quotes, fadings}
 \usetikzlibrary{decorations,fit}
@@ -15,13 +20,33 @@
 %\usepackage{fontspec}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{tumcolors}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{algorithmic}
 
 % primary colors
-\definecolor{tumblue}{RGB}{0,101,189} % Pantone 300
-\definecolor{tumorange}{RGB}{227,114,34} % Pantone 158 - Orange
+%\definecolor{tumblue}{RGB}{0,101,189} % Pantone 300
+%\definecolor{tumorange}{RGB}{227,114,34} % Pantone 158 - Orange
 \setbeamercovered{transparent}
+
+\colorlet{mamlcolor}{rouge}
+\colorlet{pretrainedcolor}{taupe}
+\colorlet{randomcolor}{acier}
+
+\usepackage[eulergreek]{sansmath}
+\pgfplotsset{
+	y tick label style={/pgf/number format/.cd,scaled y ticks = false,set thousands separator={},fixed},
+	tick label style = {font=\sansmath\sffamily\footnotesize},
+	every axis label = {font=\sansmath\sffamily\scriptsize},
+	every axis/.append style={axis lines=left, thick},
+	legend style = {font=\sansmath\sffamily\scriptsize, draw=white, fill opacity=.5, text opacity=1},
+	label style = {font=\sansmath\sffamily\footnotesize},
+	grid style={line width=.1pt, draw=gray!10},
+	major grid style={line width=.2pt,draw=perle},
+	title style={font=\sansmath\sffamily},
+	grid=both,
+}
+
 
 \begin{document}
 	
@@ -1075,93 +1100,115 @@
 
 	\end{frame}
 
-	\begin{frame}{Sen12MS-Land Cover Classification}
+	
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+		Experiments
+		
+		\hfill
+	\end{frame}
+
+	\begin{frame}{Sen12MS -- Land Cover Classification}
+		
+		{\scriptsize Model: 7 stacked CNN layers 64 x 3 x 3 kernels + BN + ReLU + max-pooling}
+		
 		\begin{tikzpicture}
-			\node(a) at (0,0){\includegraphics[width=8cm]{images/sen12ms_metasplit}};
-			\node[left=-2em of a]{\includegraphics[width=3cm]{images/rgb_fold_overlayed}};
+		\begin{axis}[
+			height=3cm,
+			width=\textwidth,
+			xtick={0,1,2,3,4,5,6,7,8,9,10},
+			legend style={at={(0.5,1)},anchor=south},
+			legend columns=3,
+			ylabel={accuracy},
+			xlabel=shots,
+			ymin=0,
+			ymax=1,
+			ymajorgrids,
+			]
+			\addplot[mamlcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/maml.csv};
+			\addlegendentry{maml}
+			\addplot[pretrainedcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/pretrained.csv};
+			\addlegendentry{pretrained}
+			\addplot[randomcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/random.csv};
+			\addlegendentry{random}
+		\end{axis}
 		\end{tikzpicture}
 		
-		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
-	\end{frame}
-
-	\begin{frame}{2-shot 4-way Few-Shot Task}
-		\only<1>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat0}}
-		\only<2>{\includegraphics[width=\textwidth]{images/human_few_shot1_cat2}}
-	\end{frame}
-
-	\begin{frame}{Results on Sen12MS}
-		\scriptsize
-		\begin{tabular}{llrrr}
-			\toprule
-			& training algorithm & accuracy & $\kappa$ \\
-			\cmidrule(lr){1-1}\cmidrule(lr){2-2}\cmidrule(lr){3-3}\cmidrule(lr){4-4}\cmidrule(lr){5-5}
-			\multirow{4}{*}{Meta-Learning} & MAML & 0.808 & 0.744 \\
-			& MAML++  & 0.810 & 0.747 \\
-			& Fo-MAML  & 0.813 & 0.751 \\
-			& Prototypical Network  & 0.748 & 0.664 \\
-			\cmidrule(lr){1-2}
-			\multirow{2}{*}{Regular SGD} & pretrained & 0.606 & 0.536 \\ % EV paper sen12ms_classification 2shot 4 way
-			& random initialization & 0.255 & 0.007 \\
-			\cmidrule(lr){1-2}
-			\multirow{4}{*}{comparison} & human (best) & 0.77 & 0.69 \\
-			& human (best 25\%) & 0.74 & 0.65 \\
-			& human (median) & 0.60 & 0.47 &\\
-			%		& human (worst 25\%) & 0.48 & 0.30 &\\
-			& random guess & 0.25 & 0 \\
-			\bottomrule
-
-			
-
-		\end{tabular}
-	
-		2D CNN classifier
-	
-		2-shot 4-way
-	\end{frame}
-
-	\begin{frame}{Takeaways MAML}
-		\begin{itemize}
-			\item Outperformed humans 
-			\item 
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}{A Frame Title}
+		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
 		
+		\begin{tikzpicture}
+		\node[label={[font=\small, node distance=0em]above:all Sen12MS regions}](a) at (0,0){\includegraphics[height=3.5cm]{images/sen12ms_metasplit}};
+		\node[right=of a, label={[font=\small, node distance=0em]above:one region split in train/test}]{\includegraphics[height=3.5cm]{images/rgb_fold_overlayed}};
+		\end{tikzpicture}
+		
+				\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
+	\end{frame}
+
+	\begin{frame}{Deepglobe Results}
 		\begin{columns}
-			\column{.5\textwidth}
+			\column{.4\textwidth}
+			\includegraphics[width=\textwidth]{deepglobe/deepglobe_dataset}
+			\column{.6\textwidth}
 			
-			
-			This is the frame content
-			\begin{itemize}
-				\item with some itemize objects
-				\item and another one
-			\end{itemize}
-			
-			Enumerates should work too
-			\begin{enumerate}
-				\item one
-				\item two
-			\end{enumerate}
+			\visible<2>{
+
+				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_shots}
+				
+				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_pca}
+				
+				\begin{tikzpicture}[xscale=1.2]
+					\node[fill=tumbluelight,font=\tiny,text=white] at (0,0){random};
+					\node[fill=tumbluedark,font=\tiny,text=white] at (1,0){pretrained};
+					\node[fill=tumorange,font=\tiny,text=white] at (2,0){MAML};
+				\end{tikzpicture}
+				
+			}
+		\end{columns}
+	
+		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
 		
+	\end{frame}
+
+	\begin{frame}{Modis Time Series Classification}
+		\centering
+%		\begin{columns}
+%			\column{.4\textwidth}
+%				\includegraphics[width=\textwidth]{igarss2020/examples}
+				\includegraphics[width=4cm]{igarss2020/modis_task_map}
+%			\column{.6\textwidth}
+				\includegraphics[width=7cm]{igarss2020/modis_africa_histograms_narrow}
+				
+		1-shot 2-way
+%		\end{columns}
+
+		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
+	\end{frame}
+
+	\begin{frame}{Conclusions}
+		
+		\begin{columns}[t]
 			\column{.5\textwidth}
-			
-			A second column with other content, maybe more text, or something \emph{emphasized}. For more, highlight in \emphred{red} or \emphblue{blue}.
-			
-			
-			
+				In General
+				\begin{itemize}
+					\item Relaxing identical distribution assumption is important!
+					\item On any geographic data, joint data distributions change
+					\item in practice, we always train and test on other domains and tasks
+					\item the question for algorithm designs is how different are these domains/tasks?
+				\end{itemize}
+			\column{.5\textwidth}
+				Model-Agnostic Meta Learning
+				\begin{itemize}
+					\item worked in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
+					\item tailored towards few-shot problems while we often have many data shots available 
+					\item implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
+				\end{itemize}
 		\end{columns}
 		
 	\end{frame}
-
-		
-%		\begin{frame}<presentation:9,13,14,15>%1-9,
-%			\frametitle{Deep Neural Networks}
-%			\centering
-%			
-%			\input{tikzfigures/neuralnetwork.tikz}
-%	\end{frame}
-
+	
 	\begin{frame}{Colors}
 		\centering
 		\begin{tikzpicture}[xscale=2.6, yscale=-2]
