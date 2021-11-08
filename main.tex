@@ -1187,26 +1187,66 @@
 		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
 	\end{frame}
 
-	\begin{frame}{Conclusions}
+	\begin{frame}{Summary MAML Experiments}
 		
-		\begin{columns}[t]
-			\column{.5\textwidth}
-				In General
-				\begin{itemize}
-					\item Relaxing identical distribution assumption is important!
-					\item On any geographic data, joint data distributions change
-					\item in practice, we always train and test on other domains and tasks
-					\item the question for algorithm designs is how different are these domains/tasks?
-				\end{itemize}
-			\column{.5\textwidth}
+%		\begin{columns}[t]
+%			\column{.5\textwidth}
+%				In General
+%				\begin{itemize}
+%					\item Relaxing identical distribution assumption is important!
+%					\item On any geographic data, joint data distributions change
+%					\item in practice, we always train and test on other domains and tasks
+%					\item the question for algorithm designs is how different are these domains/tasks?
+%				\end{itemize}
+%			\column{.5\textwidth}
 				Model-Agnostic Meta Learning
 				\begin{itemize}
 					\item worked in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
 					\item tailored towards few-shot problems while we often have many data shots available 
 					\item implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
 				\end{itemize}
-		\end{columns}
+%		\end{columns}
+
+		\vspace{1em}
 		
+		how to integrate task/domain specific information?
+		\begin{itemize}
+			\item \citeapa{Tseng, G., Kerner, H., Nakalembe, C., \& Becker-Reshef, I. (2021). Learning To Predict Crop Type From Heterogeneous Sparse Labels Using Meta-Learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1111-1120).}
+			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
+		\end{itemize}
+	
+		\vspace{1em}
+		"When to transfer [knowledge]" of Yang et al., (2020). 
+		\begin{itemize}
+			\item If distributions are too similar, transfer learning is not necessary. (e.g. DeepGlobe, unclustered)
+			\item If they are to different, there is no common knowledge to be learned. (e.g. Modis Time Series)
+		\end{itemize} 
+
+	\end{frame}
+
+	\begin{frame}{General Outlook}
+%						In General
+		\begin{itemize}
+			\item joint distribution at train and test-time are not the same
+			\item especially on geographic data
+			\item the question for algorithm designs is how different are these domains/tasks?
+		\end{itemize}
+	
+		\vspace{1em}
+	
+		\begin{columns}[t]
+			\column{.5\textwidth}
+			Marine Litter Detection
+			\includegraphics[width=\textwidth]{figures/oceans_map}
+			\includegraphics[width=\textwidth]{figures/oceans_predictions}
+			\citeapa{Mifdal, J., Longépé, N., and Rußwurm, M. (2021) Towards detecting floating objects on a global scale with learned spatial features using Sentinel 2, ISPRS Ann. Photogramm. Remote Sens. Spatial Inf. Sci., V-3-2021, 285–293.}
+			
+			\column{.5\textwidth}
+			Hydrological Modeling
+			\includegraphics[width=\textwidth]{images/camels}
+			
+			\citeapa{A. Newman, K. Sampson, M.P. Clark, A. Bock, and R.J. Viger, and D. Blodgett, 2014: A large-sample watershed-scale hydrometeorological dataset for the contiguous USA. Boulder, CO: UCAR/NCAR. doi:10.5065/D6MW2F4D}
+		\end{columns}
 	\end{frame}
 	
 	\begin{frame}{Colors}
