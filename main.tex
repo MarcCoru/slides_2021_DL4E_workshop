@@ -50,11 +50,11 @@
 
 \begin{document}
 	
-	\title{Data-Driven Vegetation Modeling and Tackling Representation Shift}
+	\title{Data-Driven Vegetation Modeling and Understanding Representation Shift}
 	\subtitle{with Few-Shot Meta-Learning}
 	\author{Marc Ru\ss{}wurm}
 	\labname{EPFL-ECEO}
-	\date{\today}
+	\date{November 10th, 2021}
 	
 	\logofilename{epfl/epfl_red.png}
 	\titlepageimage{epfl/lacleman}
@@ -66,42 +66,42 @@
 		\maketitle
 	\end{frame}
 
-	\begin{frame}{Structure}
-		
-		\begin{enumerate}
-			\item Data-Driven Vegetation Modeling and 
-			\begin{itemize}
-				\item why is it meaningful
-				\item data-driven verus model-driven approaches
-			\end{itemize}
-			\item<2-> Tackling Representation Shift 
-			\begin{itemize}
-				\item when does it arise?
-				\item regional representations
-			\end{itemize}
-			\item<3> with Few-Shot Meta-Learning Methods
-			\begin{itemize}
-				\item seeing our remote sensing data as a dataset-of-datasets
-				\item Model-agnostic meta-learning as one algorithm to tackle it.
-			\end{itemize}
-		\end{enumerate}
-		
-	\end{frame}
+%	\begin{frame}{Structure}
+%		
+%		\begin{enumerate}
+%			\item Data-Driven Vegetation Modeling and 
+%			\begin{itemize}
+%				\item why is it meaningful
+%				\item data-driven verus model-driven approaches
+%			\end{itemize}
+%			\item<2-> Tackling Representation Shift 
+%			\begin{itemize}
+%				\item when does it arise?
+%				\item regional representations
+%			\end{itemize}
+%			\item<3> with Few-Shot Meta-Learning Methods
+%			\begin{itemize}
+%				\item seeing our remote sensing data as a dataset-of-datasets
+%				\item Model-agnostic meta-learning as one algorithm to tackle it.
+%			\end{itemize}
+%		\end{enumerate}
+%	
+%	\end{frame}
 
-	\begin{frame}[plain]
-		\centering
-		\hfill
-		\Large
-		
-			Why do we need Vegetation Modeling?
-			\\
-			What do we measure?
-			\\
-			What data do we have available?
-			
-			
-		\hfill
-	\end{frame}
+%	\begin{frame}[plain]
+%		\centering
+%		\hfill
+%		\Large
+%		
+%			Why do we need Vegetation Modeling?
+%			\\
+%			What do we measure?
+%			\\
+%			What data do we have available?
+%			
+%			
+%		\hfill
+%	\end{frame}
 
 	\begin{frame}
 		\frametitle{Why do we need Vegetation Modeling?}
@@ -117,114 +117,27 @@
 			}
 			\column{.5\textwidth}
 			\includegraphics[width=\textwidth]{images/sdg_goals.pdf}
-		\end{columns}
-		
-	\end{frame}
-
-	\begin{frame}{Remote Sensing Data in Abundance}
-		\begin{columns}[t]
-			\column{.33\textwidth}
-				MODIS
-				\includemedia[
-				width=\textwidth,
-				activate=pageopen,
-				addresource=mp4/apenne_modis_ndvi.mp4,
-				flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
-					autoPlay=true}
-				]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
-				{\tiny visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
 			
-%				\vfill
-%				\scriptsize daily, global scale, 36 bands (1km by 1km pixels)
-			\column{.33\textwidth}
-				Sentinel/Landsat
-				\includemedia[
-				width=\textwidth,
-				activate=pageopen,
-				addresource=mp4/sentinel2.mp4,
-				flashvars={source=mp4/sentinel2.mp4&loop=true&
-					autoPlay=true}
-				]{\includegraphics[width=\textwidth]{mp4/sentinel2.png}}{mp4/sentinel2.mp4}
-				{\tiny visualization ESA}
-%				\vfill
-%				\scriptsize 2-5 days, regional scale, 13 bands (10m by 10m pixels)
-			\column{.33\textwidth}
-				PlanetScope
-				\includemedia[
-				width=\textwidth,
-				activate=pageopen,
-				addresource=mp4/planet_denethor.mp4,
-				flashvars={source=mp4/planet_denethor.mp4&loop=true&
-					autoPlay=true}
-				]{\includegraphics[width=\textwidth]{mp4/planet_denethor.png}}{mp4/planet_denethor.mp4}
-				{\tiny DENETHOR dataset /\\ Kondmann et al., (2021)\par}
-%				\vfill
-%				\scriptsize daily, local scale, 4 bands (3m by 3m pixels)
 		\end{columns}
 	
-		\vspace{1em}
-		\small
-	
-		\begin{columns}
-			\column{.33\textwidth}		
-			\begin{itemize}
-				\item daily/half-monthly
-				\item 250m by 250m px
-				\item 39 bands
-			\end{itemize}	
-			\column{.33\textwidth}
-			\begin{itemize}
-				\item 2-5 days
-				\item 10m by 10m px
-				\item 13 bands
-			\end{itemize}
-			\column{.33\textwidth}
-			\begin{itemize}
-				\item daily
-				\item 3m by 3m pixels
-				\item 4 bands
-			\end{itemize}
-
-	\end{columns}
-	
-		\vspace{3mm}
-		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
-	\end{frame}
-
-	
-	\begin{frame}
-		\frametitle{Photosynthesis: Light $\rightarrow$ Life}
-		%		\framesubtitle{Vegetation}
-		
-		\begin{columns}[b]
+		\visible<4>{
 			
-			\column{.5\textwidth}
-			\includegraphics[width=\textwidth]{images/leaf_smallannot.pdf}
-%			common remote sensing feature: $\text{NDVI} = \frac{\text{NIR} - \text{RED}}{\text{NIR} + \text{RED}}$ \\
-			{\tiny Image adapted from wikipedia cc}
-			%
-			\column{.5\textwidth}
-			\includegraphics[width=\textwidth]{images/reflectance_vegetation}
-			\tiny Image from Roman et al., (2016)
-		\end{columns}
+			\vspace{2em}
+			
+			Crop Type Mapping:
+			
+			\vspace{1em}
+			
+			Satellite Time Series Data $\rightarrow$ Crop Type Label \scriptsize (e.g. corn, meadow)
+			
 		
-		\normalsize
 		
-		\vspace{1em}
-		Normalized Difference Vegetation Index.
-		\vspace{1em}
-		\begin{align}
-			\text{NDVI}(\text{red}, \text{nir}) = \frac{\text{nir}-\text{red}}{\text{nir}+\text{red}}
-		\end{align}
-		
-		\vfill
-		
-		\citeapa{Roman, A., \& Ursu, T. (2016). Multispectral satellite imagery and airborne laser scanning techniques for the detection of archaeological vegetation marks. Landsc. Archaeol. North. Front. Rom. Emp. Porolissum, 141-152.}
-		
+		}
 	\end{frame}
+
 
 	\begin{frame}<presentation:1>
-		\frametitle{Satellite Time Series}
+		\frametitle{Satellite Time Series $\rightarrow$ Crop Type}
 		
 		\begin{tikzpicture}[node distance=0em]
 		\node(a) at (0,0){\includegraphics[width=10cm]{images/denethor/43647_Meadows_images}};
@@ -232,7 +145,7 @@
 		\visible<1>{
 			\node(c)[below=1cm of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plots_2018.pdf}};
 		}
-	
+		
 		\visible<2>{
 			\node(c)[below=1cm of b, xshift=-4em]{\includegraphics[width=.8\textwidth]{images/denethor/plotss2.pdf}};
 		}
@@ -242,10 +155,10 @@
 		
 		\definecolor{mpldefaultblue}{HTML}{1f77b4}
 		%\coodinate (l1) at ($ (c) + (1,1) $);
-%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (-.45,1.6) $) -- ($ (b) + (-3.8,-.8) $); % requires \usetikzlibrary{arrows.meta} and calc
-%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (.78,1.6) $) -- ($ (b) + (-1.4,-.8) $);
-%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (1.38,1.6) $) -- ($ (b) + (1.6,-.8) $);
-%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (2.46,1.6) $) -- ($ (b) + (5,-.8) $);
+		%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (-.45,1.6) $) -- ($ (b) + (-3.8,-.8) $); % requires \usetikzlibrary{arrows.meta} and calc
+		%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (.78,1.6) $) -- ($ (b) + (-1.4,-.8) $);
+		%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (1.38,1.6) $) -- ($ (b) + (1.6,-.8) $);
+		%		\draw[Circle - , color=mpldefaultblue] ($ (c) + (2.46,1.6) $) -- ($ (b) + (5,-.8) $);
 		
 		%\node[circle, draw] at (l1) {+};
 		
@@ -254,16 +167,133 @@
 		\citeapa{Kondmann, et al., "DENETHOR: The DynamicEarthNET dataset for Harmonized, inter-Operable, analysis-Ready, daily crop monitoring from space.". NeurIPS Data Track (2021).}
 	\end{frame}
 
+	\begin{frame}{Satellite Time Series Data in Abundance}
+		
+		\includemedia[
+		width=\textwidth,
+		activate=pageopen,
+		addresource=mp4/apenne_modis_ndvi.mp4,
+		flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
+			autoPlay=true}
+		]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
+		
+		{\tiny visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
+		
+	\end{frame}
+	
+	\begin{frame}{Label Data in Abundance}
+		\begin{tikzpicture}
+			\node{\includegraphics[width=\textwidth]{images/france_crop_distribution}};
+			\visible<2>{
+				\node[anchor=west, text=white, fill=rouge, text width=8cm] at (-5,-3){10 million field labels, in France each year. \\ 3 GB in labels and 2.7 TB in (Sentinel 2) satellite data};
+			}
+		\end{tikzpicture}
+	
+	\end{frame}
+
+	\begin{frame}[plain]
+		\centering
+		\vfill
+		
+		\Large
+		Problem Solved?
+		
+		\visible<2->{
+			\vspace{2em}
+			Plenty of input data!
+		}
+	
+		\visible<3->{
+			\vspace{2em}
+			Plenty of labelled data!
+		}
+
+		\visible<4>{
+			\vspace{2em}
+			\textbf{Let's train a Deep Learning Model!}
+		}
+		
+		\vfill
+		
+	\end{frame}
+
+	\begin{frame}{The "Data Dilemma"}
+		\begin{tikzpicture}
+			\node(a){
+				\only<1>{
+					\includegraphics[width=.8\textwidth]{images/francecrops/frf1.png}
+				}
+				\only<2>{
+					\includegraphics[width=.8\textwidth]{images/francecrops/fri1.png}
+				}
+			};
+			\node[left=-3em of a, text width=3cm]{training and testing on different regions};
+		\end{tikzpicture}
+		
+		\vspace{-.5cm}
+		binary "wheat" vs "other cereals" classification
+		
+%		\vspace{1em}
+		{\tiny 
+			crop type time series classification with a simple 1D-CNN and 200 samples per class	in each NUTS-2 region
+		}
+	\end{frame}
+
+%
+%	\begin{frame}{Training and Testing on different regions}
+%		\includegraphics[width=.49\textwidth]{images/francecrops/frf1.png}
+%		\includegraphics[width=.49\textwidth]{images/francecrops/fri1.png}
+%		
+%		\vspace{1em}
+%		binary "wheat" vs "other cereals" classification
+%		
+%		\vspace{1em}
+%		{\small 
+%			crop type time series classification with a simple 1D-CNN and 200 samples per class	in each NUTS-2 region
+%		}
+%	\end{frame}
+	
+	\begin{frame}{Environmental Conditions}
+		
+				
+		{
+			Photosynthesis is a function of the environment.
+		}
+	
+		\vspace{1cm}
+		
+		\begin{columns}[t]
+			\column{.5\textwidth}
+			Precipitation 2018-08
+			\includegraphics[width=\textwidth]{images/france_pr_201808}
+			
+			\column{.5\textwidth}
+				Max temp (23-30°C) 2018-08
+				\includegraphics[width=\textwidth]{images/france_tmmx_201808}
+			
+		\end{columns}
+
+	\end{frame}
+	
+	\begin{frame}{Apply models on regions of little data}
+		\includegraphics[width=\textwidth]{igarss2020/modis_task_map}
+	\end{frame}
+
+	
+	
+
+
 	\begin{frame}[plain]
 		\centering
 		\hfill
 		\Large
 		
-		Data and Model-Driven Models
+		Model- and Data-Driven Approaches
 		\hfill
 	\end{frame}
 
-	\begin{frame}{Model-Driven Methods}
+	\begin{frame}{Model-Driven Methods {\small (until 2017)}}
+		
 		\begin{columns}
 			\column{.5\textwidth}
 				\resizebox{\textwidth}{!}{
@@ -326,6 +356,11 @@
 			\node[below=0cm of c, font=\scriptsize](a){e.g., SVM, RF};
 		\end{tikzpicture}
 		
+		\vspace{1em}
+		\visible<2>{
+			\centering\textbf{What are the best features?}
+		}
+		
 	\end{frame}
 
 	
@@ -376,6 +411,11 @@
 		\resizebox{\textwidth}{!}{
 			\input{tikzfigures/NN-transformations.tikz}
 		}
+	
+		\vspace{1em}
+		\visible<2>{
+			\centering\textbf{What are the best DL models?}
+		}
 	\end{frame}
 
 	\begin{frame}[t]{Data-Driven Methods}
@@ -424,7 +464,8 @@
 		\hfill
 		\Large
 		
-		What assumptions do we take in Machine Learning?
+		How do we generate data?
+%		What assumptions do we take in \\ Machine Learning?
 		
 		
 		\hfill
@@ -440,23 +481,31 @@
 		
 		\begin{tikzpicture}
 			\node[label={[name=domainlabel]domain}](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
-			\node[label={[name=tasklabel]task}, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+			\visible<3->{
+				\node[label={[name=tasklabel]task}, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+			}
 			
-			\node[below=of domain](xsample){$\mathbf{X} \sim P(\mathcal{X})$};
+			\visible<2->{
+				\node[below=of domain](xsample){$\mathbf{X} \sim P(\mathcal{X})$};
+				\draw[-Stealth] (domain) -- (xsample);
+			}
 			
-			\node[below=of task](ysample){$y = f(\mathbf{X})$};
-			
-			\draw[-Stealth] (domain) -- (xsample);
-			\draw[-Stealth] (xsample) -- node[midway, above, font=\tiny, name=label]{predictive function f} (ysample);
-			
-			\node[fit=(domain)(xsample)(task)(ysample)(domainlabel)(tasklabel), draw, rounded corners, label={[name=dgm, font=\small]below:(world) data generation model $P(\mathcal{X} \times \mathcal{Y})$}](box) {};
-%			\node[right=of box, font]{Data Generation Model};
-
-			
+			\visible<4->{
+				\node[below=of task](ysample){$y = f(\mathbf{X})$};
+				\draw[-Stealth] (xsample) -- node[midway, above, font=\tiny, name=label]{predictive function f} (ysample);
+			}
+			\visible<5->{
+				\node[fit=(domain)(xsample)(task)(ysample)(domainlabel)(tasklabel), draw, rounded corners, label={[name=dgm, font=\small]below:joint data distribution $P(\mathcal{X} \times \mathcal{Y})$}](box) {};
+	%			\node[right=of box, font]{Data Generation Model};
+			}
+			\visible<6->{
 			\node[below=3em of label](datasampling){Dataset: $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$};
-			
-			\node[below=1em of datasampling](model){\featurelearningtikz};
-			
+			}
+		
+			\visible<7->{
+				\node[below=1em of datasampling](model){\featurelearningtikz};
+			}
+		
 		\end{tikzpicture}
 		\vfill\tiny
 		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
@@ -464,6 +513,17 @@
 		\citeapa{Shai Ben-David and Shai Shalev-Shwartz (2014). Understanding Machine Learning: From Theory to Algorithms}
 	\end{frame}
 
+	\begin{frame}[plain]
+		\centering
+		\hfill
+		\Large
+		
+		Our central Assumption in Machine Learning
+		%		What assumptions do we take in \\ Machine Learning?
+		
+		
+		\hfill
+	\end{frame}
 	
 	\begin{frame}
 		\frametitle{I.I.D assumption}
@@ -530,135 +590,87 @@
 		\end{tikzpicture}
 	\end{frame}
 
-	\begin{frame}{Measuring OOD Generalization}
-		\begin{tikzpicture}
-		\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
-		\node at (-1,-1)(dstrain){$D_\text{train}$};
-		\node at (1,-1)(dstest){$D_\text{test}$};
-		
-		\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
-		\draw[-Stealth](ds) -- (dstest);
-		
-		\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Task/Domain\phantom{g}}]{};
-		
-		\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
-		\draw[-Stealth] (dstrain) -- (weights);
-		
-		\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
-		\draw[-Stealth] (dstest) -- (testloss);
-		\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{compare with $f(\cdot)$} (testloss);
-		
-		\node[below=0em of testloss, text width=2cm, font=\scriptsize](tllabel){"in-domain" or "in-distribution" generalization};
-		
-		\begin{scope}[xshift=5cm]
-			\node(Q) at (0,0){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
-			\node at (-1,-1)(dsqtrain){$D_\text{train}$};
-			\node at (1,-1)(dsqtest){$D_\text{test}$};
-		\end{scope}
-		
-		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
-		\draw[-Stealth](Q) -- (dsqtest);
-		
-		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Task/Domain}]{};
-		
-		\node[below=of dsqtest] (oodloss) {$\mathcal{L}_\text{out}$};
-		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
-		
-		\draw[-Stealth] (testloss) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
-		\draw[-Stealth] (dsqtest) -- (oodloss);
-		
-		\end{tikzpicture}
-	\end{frame}
-
-
-	\begin{frame}[plain]
-		\centering
-		\hfill
-			\Large
-			
-			Is that really a problem?
-			
-			\vspace{1em}
-			Are training and testing distributions identical in real world applications?
-			
-		\hfill
-	\end{frame}
 
 	\begin{frame}{Train/Test Dists are usually not identical}
 		
 		Examples
 		\begin{columns}[t]
 			\column{.5\textwidth}
-				
-				gender classification \\
-				{\scriptsize (Buolamwini \& Gebru, 2016)}
-				
-				\vspace{1em}
-				
-				\includegraphics[width=\textwidth]{images/BoulamwiniGebru2016}
-				
-				\vspace{1em}
-				
-				CV classifiers performed
-				\begin{itemize}
-					\item worst for darker females
-					\item best for lighter males
-				\end{itemize}
+			
+			gender classification \\
+			{\scriptsize (Buolamwini \& Gebru, 2016)}
+			
+			\vspace{1em}
+			
+			\includegraphics[width=\textwidth]{images/BoulamwiniGebru2016}
+			
+			\vspace{1em}
+			
+			CV classifiers performed
+			\begin{itemize}
+				\item worst for darker females
+				\item best for lighter males
+			\end{itemize}
 			
 			\column{.5\textwidth}
 			
-				large language models
-				
-				\begin{itemize}
-					\item Trained on massive text datasets on the internet (e.g. Reddit, News, Blogs).
-					\item deployed in everyday situations (e.g. chat bots,  drafting blog posts).
-				\end{itemize}
+			large language models
 			
-				Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
+			\begin{itemize}
+				\item Trained on massive text datasets on the internet (e.g. Reddit, News, Blogs).
+				\item deployed in everyday situations (e.g. chat bots,  drafting blog posts).
+			\end{itemize}
+			
+			Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
 			
 		\end{columns}
 		
 		\vfill
-	
+		
 		\citeapa{Buolamwini, J., \& Gebru, T. (2018, January). Gender shades: Intersectional accuracy disparities in commercial gender classification. In Conference on fairness, accountability and transparency (pp. 77-91). PMLR.}
 		
 		\citeapa{Nadeem, M., Bethke, A., \& Reddy, S. (2020). Stereoset: Measuring stereotypical bias in pretrained language models. arXiv preprint arXiv:2004.09456.}
 	\end{frame}
 
-
-	\begin{frame}{Distributions shift with location and time}
-		\begin{columns}[t]
-			\column{.5\textwidth}
-			Dominant crop type (by color)
-			\includegraphics[width=\textwidth]{images/france_crop_distribution}
-			
-			\column{.5\textwidth}
-			\only<1>{
-			Max temp (23-30°C) 2018-08
-			\includegraphics[width=\textwidth]{images/france_tmmx_201808}
-			}
-			\only<2>{
-				Precipitation 2018-08
-				\includegraphics[width=\textwidth]{images/france_pr_201808}
-			}
-		\end{columns}
-	\end{frame}
-
-
-	\begin{frame}{Toy Example: "wheat" vs "other cereals"}
-		\includegraphics[width=.49\textwidth]{images/francecrops/frf1.png}
-		\includegraphics[width=.49\textwidth]{images/francecrops/fri1.png}
-		
-		\vspace{1em}
-		binary "wheat" vs "other cereals" classification
-		
-		\vspace{1em}
-		{\small 
-			crop type time series classification with a simple 1D-CNN and 200 samples per class	in each NUTS-2 region
-		}
-	\end{frame}
-
-
+%	\begin{frame}{Measuring OOD Generalization}
+%		\begin{tikzpicture}
+%		\node(ds) at (0,0){$D \iidsim P(\mathcal{X} \times \mathcal{Y})$};
+%		\node at (-1,-1)(dstrain){$D_\text{train}$};
+%		\node at (1,-1)(dstest){$D_\text{test}$};
+%		
+%		\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
+%		\draw[-Stealth](ds) -- (dstest);
+%		
+%		\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: Source Task/Domain\phantom{g}}]{};
+%		
+%		\node[below=of dstrain, label={[font=\tiny]left:train model}] (weights) {$f_\theta$};
+%		\draw[-Stealth] (dstrain) -- (weights);
+%		
+%		\node[below=of dstest] (testloss) {$\mathcal{L}_\text{in}$};
+%		\draw[-Stealth] (dstest) -- (testloss);
+%		\draw[-Stealth] (weights) -- node[midway,above,font=\tiny]{compare with $f(\cdot)$} (testloss);
+%		
+%		\node[below=0em of testloss, text width=2cm, font=\scriptsize](tllabel){"in-domain" or "in-distribution" generalization};
+%		
+%		\begin{scope}[xshift=5cm]
+%			\node(Q) at (0,0){$D \iidsim Q(\mathcal{X} \times \mathcal{Y})$};
+%			\node at (-1,-1)(dsqtrain){$D_\text{train}$};
+%			\node at (1,-1)(dsqtest){$D_\text{test}$};
+%		\end{scope}
+%		
+%		\draw[-Stealth](Q) --node[midway, left=0.5em, font=\tiny, name=labelqsplit]{random split} (dsqtrain);
+%		\draw[-Stealth](Q) -- (dsqtest);
+%		
+%		\node[draw, rounded corners, fit=(Q)(dsqtrain)(dsqtest)(labelqsplit), label={above: Target Task/Domain}]{};
+%		
+%		\node[below=of dsqtest] (oodloss) {$\mathcal{L}_\text{out}$};
+%		\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
+%		
+%		\draw[-Stealth] (testloss) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
+%		\draw[-Stealth] (dsqtest) -- (oodloss);
+%		
+%		\end{tikzpicture}
+%	\end{frame}
 
 	\begin{frame}{Global Distribution Shift}
 		\includegraphics[width=\textwidth]{images/countries_globe}
@@ -675,44 +687,35 @@
 		
 		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
+
+	\begin{frame}
+		\includegraphics[width=.8\textwidth]{images/francecrops/frf1.png}
+	\end{frame}
 	
-%	\begin{frame}{Domain and Task}
-%		\begin{tikzpicture}
-%		\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
-%		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
-%		\end{tikzpicture}
-%		\vfill\tiny
-%		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
-%		¨
+	%	\begin{frame}{Domain and Task}
+	%		\begin{tikzpicture}
+	%		\node[label=domain](domain){$\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$};
+	%		\node[label=task, right=of domain](task){$\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$};
+	%		\end{tikzpicture}
+	%		\vfill\tiny
+	%		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+	%		¨
+	%	\end{frame}
+	
+%	\begin{frame}{Global Distribution Shift}
+%		\includegraphics[width=.9\textwidth]{images/Sen12ms_distribution_shift}
+%		
+%		\scriptsize
+%		Figure from
+%		
+%		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+%		
+%		\scriptsize
+%		Data from
+%		
+%		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 %	\end{frame}
 
-	\begin{frame}{Global Distribution Shift}
-		\includegraphics[width=.9\textwidth]{images/Sen12ms_distribution_shift}
-		
-		\scriptsize
-		Figure from
-		
-		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
-		
-		\scriptsize
-		Data from
-		
-		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
-	\end{frame}
-
-
-	\begin{frame}[plain]
-		\centering
-		\hfill
-		\Large
-		
-		End Interlude: \\ 
-		
-		\vspace{1em}
-		How to improve on target Tasks/Domains?
-		\hfill
-	\end{frame}
-	
 	\begin{frame}{Improve on the target Task/Domain}
 		
 		Option 1) Just train on target data {\scriptsize (we will call "random initialization")}
@@ -1187,6 +1190,29 @@
 		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
 	\end{frame}
 
+	\begin{frame}{When to Transfer?}
+		
+%		when source and target task/domains...
+%		\begin{itemize}
+%			\item are similar: regular machine learning is sufficient
+%			\item are related: transfer learning is beneficial 
+%			\item are not related: brute-force transfer may be unsuccessful.
+%		\end{itemize}
+	
+		\vspace{1em}
+		"When to transfer?" of Yang et al., (2020). 
+		\begin{itemize}
+			\item If distributions are too similar, transfer learning is not necessary. (e.g. DeepGlobe, unclustered)
+			\item if distributions are related, transfer learning is effective (e.g. Sen12MS)
+			\item If they are to different, there is no common knowledge to be learned. (e.g. Modis Time Series)
+		\end{itemize} 
+	
+		\vfill
+		
+		\citeapa{Pan, S. J., \& Yang, Q. (2009). A survey on transfer learning. IEEE Transactions on knowledge and data engineering, 22(10), 1345-1359.}
+		\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
+	\end{frame}
+
 	\begin{frame}{Summary MAML Experiments}
 		
 %		\begin{columns}[t]
@@ -1215,12 +1241,7 @@
 			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
 		\end{itemize}
 	
-		\vspace{1em}
-		"When to transfer [knowledge]" of Yang et al., (2020). 
-		\begin{itemize}
-			\item If distributions are too similar, transfer learning is not necessary. (e.g. DeepGlobe, unclustered)
-			\item If they are to different, there is no common knowledge to be learned. (e.g. Modis Time Series)
-		\end{itemize} 
+
 
 	\end{frame}
 
