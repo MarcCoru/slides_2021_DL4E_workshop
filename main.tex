@@ -1012,100 +1012,117 @@
 
 			\column{.66\textwidth}
 			
-				\includegraphics[width=\textwidth]{maml_algs/maml_alg}
-%		
-			\column{.5\textwidth}
+				\begin{tikzpicture}
+					\node[inner sep=0](a){\includegraphics[width=7cm]{maml_algs/maml_alg}};
+					
+					\visible<1>{
+						\node[circle, fill=rouge, xshift=-2.7cm, yshift=0.6cm] at (a.center){};
+					}
+					\visible<2>{
+						\node[circle, fill=rouge, xshift=-2.3cm, yshift=-.43cm] at (a.center){};
+					}
+					\visible<3>{
+						\node[circle, fill=rouge, xshift=-2.3cm, yshift=-.78cm] at (a.center){};
+					}
+					\visible<4>{
+						\node[circle, fill=rouge, xshift=-2.3cm, yshift=-1.12cm] at (a.center){};
+					}
+					\visible<5>{
+						\node[circle, fill=rouge, xshift=-2.7cm, yshift=-1.82cm] at (a.center){};
+					}
+				\end{tikzpicture}
+				
+%
+			\column{.45\textwidth}
 			
 			Meta-Learned Initialization
 			
 			\begin{tikzpicture}[scale=0.5]
 			
-				\visible<1-7>{
+				\visible<1-6>{
 					\node[dist, inner color=rouge](a) at (3,2){$f_{P_1}$};
 					\node[dist, inner color=canard](b) at (6,0){$f_{P_2}$};
 					\node[dist, inner color=grosseille](c) at (3,-2){$f_{P_3}$};
 				}
 				
-				\visible<1-2>{
-					\node (p) at (1,0){$\theta^\text{rand}$};
+				\visible<2>{
+					\node (p) at (1,0){$\theta$};
 					
 					\draw[-Stealth] (p) -- (a.center);
 					\draw[-Stealth] (p) -- (b.center);
 					\draw[-Stealth] (p) -- (c.center);
-				}
-				
-				\visible<2>{
+
 					\draw[-Stealth, rouge] (a.center) to[bend left=25] (p);
 					\draw[-Stealth, rouge] (b.center) to[bend left=15] (p);
 					\draw[-Stealth, rouge] (c.center) to[bend left=25] (p);	
 				}
 			
 				\visible<3>{
-					\node (p) at (1,0){$\theta^\text{rand}$};
+					\node (p) at (1,0){$\theta$};
 					
-					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\theta_1$};
-					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\theta_2$};
-					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\theta_3$};
+					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\phi_1$};
+					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\phi_2$};
+					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\phi_3$};
 					
 					\draw[-Stealth] (p) -- node[midway, left, font=\tiny]{SGD} (pa);
 					\draw[-Stealth] (p) -- (pb);
 					\draw[-Stealth] (p) -- (pc);
 				}
 			
-				\visible<4-6>{
-					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\theta_1$};
-					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\theta_2$};
-					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\theta_3$};
+				\visible<4-5>{
+					\node (p) at (1,0){$\theta$};
+					
+					\node[inner sep=0] (pa) at ($(p)!0.5!(a)$) {$\phi_1$};
+					\node[inner sep=0] (pb) at ($(p)!0.5!(b)$) {$\phi_2$};
+					\node[inner sep=0] (pc) at ($(p)!0.5!(c)$) {$\phi_3$};
 					
 					\draw[-Stealth] (pa) -- (a.center);
 					\draw[-Stealth] (pb) -- (b.center);
 					\draw[-Stealth] (pc) -- (c.center);
 				}
 			
-				\visible<5-6>{
+				\visible<5>{
 					\draw[-Stealth, rouge] (a.center) to[bend left=25] (pa);
 					\draw[-Stealth, rouge] (b.center) to[bend left=25] (pb);
 					\draw[-Stealth, rouge] (c.center) to[bend left=25] node[midway, left, font=\tiny]{inner loop} (pc);
-				}
-			
-				\visible<6>{
-					\node (p) at (1,0){$\theta$};
-					
+				
 					\draw[-Stealth, rouge] (pa) to (p);
 					\draw[-Stealth, rouge] (pb) to (p);
 					\draw[-Stealth, rouge] (pc) to node[midway, left, font=\tiny]{outer loop} (p);
 				}
 			
-				\visible<7>{
-					\node (p) at (4,0){$\theta^\text{meta}$};
-					
-					\node[inner sep=0em] (pa) at ($(p)!0.75!(a)$) {$\theta_1$};
-					\node[inner sep=0em] (pb) at ($(p)!0.75!(b)$) {$\theta_2$};
-					\node[inner sep=0em] (pc) at ($(p)!0.75!(c)$) {$\theta_3$};
-					
+				\visible<6>{
+					\node (p) at (1,0){$\theta$};
+					\node (pa) at (4,0){$\theta$};
 					\draw[-Stealth] (p) -- (pa);
-					\draw[-Stealth] (p) -- (pb);
-					\draw[-Stealth] (p) -- (pc);
 					
-					\draw[-Stealth] (pa) -- (a.center);
-					\draw[-Stealth] (pb) -- (b.center);
-					\draw[-Stealth] (pc) -- (c.center);
+%					\node[inner sep=0em] (pa) at ($(p)!0.75!(a)$) {$\phi_1$};
+%					\node[inner sep=0em] (pb) at ($(p)!0.75!(b)$) {$\phi_2$};
+%					\node[inner sep=0em] (pc) at ($(p)!0.75!(c)$) {$\phi_3$};
+%					
+%					\draw[-Stealth] (p) -- (pa);
+%					\draw[-Stealth] (p) -- (pb);
+%					\draw[-Stealth] (p) -- (pc);
+%					
+%					\draw[-Stealth] (pa) -- (a.center);
+%					\draw[-Stealth] (pb) -- (b.center);
+%					\draw[-Stealth] (pc) -- (c.center);
 				}
 			
-				\visible<8>{	
+				\visible<7>{	
 					
 					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
 					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
 					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
 					
-					\node (p) at (4,0){$\theta^\text{meta}$};
-					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+					\node (p) at (4,0){$\theta$};
+					\node[dist, inner color=acier](q) at (6,-3){$\phi$};
 					
-					\draw[-Stealth] (p) -- (q);
+					\draw[-Stealth] (p) -- (q.center);
 				}
 				
 			\end{tikzpicture}
-			\visible<8>{
+			\visible<7>{
 			Optimized \textbf{to adapt} well to source distributions
 			}
 			
@@ -1114,16 +1131,7 @@
 	\end{frame}
 
 	
-%	\begin{frame}[plain]
-%		\centering
-%		\hfill
-%		\Large
-%		
-%		Experiments
-%		
-%		\hfill
-%	\end{frame}
-
+	
 	\begin{frame}{Deepglobe Land Cover Classification}
 		\begin{columns}
 			\column{.4\textwidth}
@@ -1149,59 +1157,143 @@
 		
 	\end{frame}
 
-	\begin{frame}{Sen12MS -- Land Cover Classification}
-		
-		{\scriptsize Model: 7 stacked CNN layers 64 x 3 x 3 kernels + BN + ReLU + max-pooling}
-		
-		\begin{tikzpicture}
-		\begin{axis}[
-			height=3cm,
-			width=\textwidth,
-			xtick={0,1,2,3,4,5,6,7,8,9,10},
-			legend style={at={(0.5,1)},anchor=south},
-			legend columns=3,
-			ylabel={accuracy},
-			xlabel=shots,
-			ymin=0,
-			ymax=1,
-			ymajorgrids,
-			]
-			\addplot[mamlcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/maml.csv};
-			\addlegendentry{maml}
-			\addplot[pretrainedcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/pretrained.csv};
-			\addlegendentry{pretrained}
-			\addplot[randomcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/random.csv};
-			\addlegendentry{random}
-		\end{axis}
-		\end{tikzpicture}
-		
-		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
-		
-		\begin{tikzpicture}
+	\begin{frame}{Sen12MS ---  Land Cover Classification}
+				\begin{tikzpicture}
 		\node[label={[font=\small, node distance=0em]above:all Sen12MS regions}](a) at (0,0){\includegraphics[height=3.5cm]{images/sen12ms_metasplit}};
 		\node[right=of a, label={[font=\small, node distance=0em]above:one region split in train/test}]{\includegraphics[height=3.5cm]{images/rgb_fold_overlayed}};
 		\end{tikzpicture}
 		
-				\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
+		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
+	\end{frame}
+
+	\begin{frame}{Similar weights after adaptation?}
+		PCA-representations of the neural network weights \\ before ($\theta$) and after adaptation $(\phi)$.
+		
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-31}
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-79}
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-129}
+%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/124-125}
+%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/129-147}
+	
+		\vspace{1em}
+		Traversing the loss landscape from $\theta$ to $\phi$.
+	
+		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/maml}
+		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/pretrained}
+	\end{frame}
+%
+%	\begin{frame}
+%		\tikzstyle{labelstyle} = [font=\tiny\sffamily]
+%		
+%		 		\begin{tikzpicture}
+%		
+%		 		\newcommand{\traintaska}{
+%		 			\begin{tikzpicture}[xscale=.75]
+%		 				\node[label={[labelstyle]below=0em:forest}] at (0,0) {\includegraphics[width=.7cm]{figures/sen12ms-2d-losses/pretrained/0/traintask1/summer-56-Forests-p53br.png}};
+%		 				\node[label={[labelstyle]below:grassland}] at (1,0) {\includegraphics[width=.7cm]{figures/sen12ms-2d-losses/pretrained/0/traintask1/summer-56-Grassland-p37tl.png}};
+%		 				\node[label={[labelstyle]below:savanna}] at (2,0) {\includegraphics[width=.7cm]{figures/sen12ms-2d-losses/pretrained/0/traintask1/summer-56-Savanna-p168br.png}};
+%		 				\node[label={[labelstyle]below:urban}] at (3,0) {\includegraphics[width=.7cm]{figures/sen12ms-2d-losses/pretrained/0/traintask1/summer-56-Urban_Build-up-p417tl.png}};
+%		 			\end{tikzpicture}
+%		 		}
+%				\hspace{-2cm}
+%		 		\node[label={[font=\scriptsize\sffamily, yshift=-1em]above:MAML}](a){\includegraphics[width=4cm]{figures/sen12ms-2d-losses/maml/0/loss_surface}};
+%		 		\node[label={[font=\scriptsize\sffamily, yshift=-1em]above:pre-trained}, right=0em of a](pretrained){\includegraphics[width=4cm]{figures/sen12ms-2d-losses/pretrained/0/loss_surface}};
+%		 		\node[label={[font=\scriptsize\sffamily, yshift=-1em]above:random}, right=0em of pretrained](random){\includegraphics[width=4cm]{figures/sen12ms-2d-losses/random/0/loss_surface}};
+%%		 		\node[below=0em of pretrained]{\traintaska};
+%%		
+%		 		\end{tikzpicture}
+%	\end{frame}
+
+	
+%	\begin{frame}[plain]
+%		\centering
+%		\hfill
+%		\Large
+%		
+%		Experiments
+%		
+%		\hfill
+%	\end{frame}
+
+
+	\begin{frame}{Sen12MS -- Few-Shot Performance}
+		
+		{\scriptsize Model: 7 stacked CNN layers 64 x 3 x 3 kernels + BN + ReLU + max-pooling}
+		
+		Classification
+		\begin{tikzpicture}
+		\begin{axis}[
+		height=3cm,
+		width=\textwidth,
+		xtick={0,1,2,3,4,5,6,7,8,9,10},
+		legend style={at={(0.5,1)},anchor=south},
+		legend columns=3,
+		ylabel={accuracy},
+		xlabel=shots,
+		ymin=0,
+		ymax=1,
+		ymajorgrids,
+		]
+		\addplot[mamlcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/maml.csv};
+		\addlegendentry{maml}
+		\addplot[pretrainedcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/pretrained.csv};
+		\addlegendentry{pretrained}
+		\addplot[randomcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_classification/4-way/random.csv};
+		\addlegendentry{random}
+		\end{axis}
+		\end{tikzpicture}
+		
+		Segmentation
+		\begin{tikzpicture}
+		\begin{axis}[
+		height=3cm,
+		width=\textwidth,
+		xtick={0,1,2},
+		xticklabels={0,1,5},
+%		xmax=6,
+		legend style={at={(0.5,1)},anchor=south},
+		legend columns=3,
+		ylabel={accuracy},
+		xlabel=shots,
+		ymin=0,
+		ymax=1,
+		ymajorgrids,
+		]
+		\addplot[mamlcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_segmentation/maml.csv};
+		\addlegendentry{maml}
+		\addplot[pretrainedcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_segmentation/pretrained.csv};
+		\addlegendentry{pretrained}
+		\addplot[randomcolor, mark = *] table [x=index, y=accuracy, col sep=comma] {figures/sen12ms_segmentation/random.csv};
+		\addlegendentry{random}
+		\end{axis}
+		\end{tikzpicture}
+		
+		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+		
 	\end{frame}
 
 	\begin{frame}{Modis Time Series Classification}
 		\centering
 %		\begin{columns}
 %			\column{.4\textwidth}
-%				\includegraphics[width=\textwidth]{igarss2020/examples}
-				\includegraphics[height=2.5cm]{igarss2020/modis_task_map}
+%				\includegraphics[width=.49\textwidth]{igarss2020/examples}
+				\includegraphics[width=.75\textwidth]{igarss2020/modis_task_map}
 %				\includegraphics[height=1.5cm]{igarss2020/modis_task}
 %			\column{.6\textwidth}
-				\includegraphics[width=7cm]{igarss2020/modis_africa_histograms_narrow}
 				
+		\vfill
+		
 		1-shot 2-way, 515 meta-test tasks from Sub-Saharan  Africa
 %		\end{columns}
 
 		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
 	\end{frame}
 
-	\begin{frame}{When to Transfer?}
+	\begin{frame}{Challenging Problem: Mixed results}
+		\includegraphics[width=\textwidth]{igarss2020/modis_africa_histograms_narrow}
+	\end{frame}
+
+	\begin{frame}{Summary: When to Transfer?}
 		
 %		when source and target task/domains...
 %		\begin{itemize}
@@ -1212,10 +1304,11 @@
 	
 		\vspace{1em}
 		"When to transfer?" of Yang et al., (2020). 
+		\vspace{1em}
 		\begin{itemize}
-			\item If distributions are too similar, transfer learning is not necessary. (e.g. DeepGlobe, unclustered)
-			\item if distributions are related, transfer learning is effective (e.g. Sen12MS)
-			\item If they are to different, there is no common knowledge to be learned. (e.g. Modis Time Series)
+			\item<1-> If distributions are too similar, transfer learning is not necessary. (e.g. DeepGlobe, unclustered)
+			\item<2-> if distributions are related, transfer learning is effective (e.g. Sen12MS)
+			\item<3-> If they are to different, there is no common knowledge to be learned. (e.g. Africa-testset: in Modis Time Series)
 		\end{itemize} 
 	
 		\vfill
@@ -1238,74 +1331,135 @@
 %			\column{.5\textwidth}
 				Model-Agnostic Meta Learning
 				\begin{itemize}
-					\item worked in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
-					\item tailored towards few-shot problems while we often have many data shots available 
-					\item implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
+					\item<1-> was effective in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
+					\item<2-> tailored towards few-shot problems while we often have many data shots available 
+					\item<3-> implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
+					\item<4-> Newer approaches have been proposed (MAML++, ProtoMAML, etc)
 				\end{itemize}
 %		\end{columns}
 
-		\vspace{1em}
-		
-		how to integrate task/domain specific information?
-		\begin{itemize}
-			\item \citeapa{Tseng, G., Kerner, H., Nakalembe, C., \& Becker-Reshef, I. (2021). Learning To Predict Crop Type From Heterogeneous Sparse Labels Using Meta-Learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1111-1120).}
-			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
-		\end{itemize}
-	
+%		\vspace{1em}
+%		
+%		how to integrate task/domain specific information?
+%		\begin{itemize}
+%			\item \citeapa{Tseng, G., Kerner, H., Nakalembe, C., \& Becker-Reshef, I. (2021). Learning To Predict Crop Type From Heterogeneous Sparse Labels Using Meta-Learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1111-1120).}
+%			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
+%		\end{itemize}
+%	
 
 
 	\end{frame}
 
-	\begin{frame}{General Outlook}
+	\begin{frame}{Outlook}
 %						In General
-		\begin{itemize}
-			\item joint distribution at train and test-time are not the same
-			\item especially on geographic data
-			\item the question for algorithm designs is how different are these domains/tasks?
-		\end{itemize}
-	
-		\vspace{1em}
+
+		
 	
 		\begin{columns}[t]
 			\column{.5\textwidth}
-			Marine Litter Detection
-			\includegraphics[width=\textwidth]{figures/oceans_map}
-			\includegraphics[width=\textwidth]{figures/oceans_predictions}
-			\citeapa{Mifdal, J., Longépé, N., and Rußwurm, M. (2021) Towards detecting floating objects on a global scale with learned spatial features using Sentinel 2, ISPRS Ann. Photogramm. Remote Sens. Spatial Inf. Sci., V-3-2021, 285–293.}
+			
+				\begin{itemize}
+					\item<1-> Out-of-distribution generalization remains challenging. 
+					\item<2-> Few-shot meta-learning well-suited for some cases (i.e., many uniformly distributed datasets around the globe).
+					\item<3-> We may need to decide on the learning-framework on a case by case basis
+				\end{itemize}
 			
 			\column{.5\textwidth}
-			Hydrological Modeling
-			\includegraphics[width=\textwidth]{images/camels}
 			
-			\citeapa{A. Newman, K. Sampson, M.P. Clark, A. Bock, and R.J. Viger, and D. Blodgett, 2014: A large-sample watershed-scale hydrometeorological dataset for the contiguous USA. Boulder, CO: UCAR/NCAR. doi:10.5065/D6MW2F4D}
+			\visible<3->{
+				Marine Litter Detection
+				\includegraphics[width=\textwidth]{figures/oceans_map}
+				\includegraphics[width=\textwidth]{figures/oceans_predictions}
+				\citeapa{Mifdal, J., Longépé, N., and Rußwurm, M. (2021) Towards detecting floating objects on a global scale with learned spatial features using Sentinel 2, ISPRS Ann. Photogramm. Remote Sens. Spatial Inf. Sci., V-3-2021, 285–293.}
+		}
+			
+%			\column{.5\textwidth}
+%			Hydrological Modeling
+%			\includegraphics[width=\textwidth]{images/camels}
+%			
+%			\citeapa{A. Newman, K. Sampson, M.P. Clark, A. Bock, and R.J. Viger, and D. Blodgett, 2014: A large-sample watershed-scale hydrometeorological dataset for the contiguous USA. Boulder, CO: UCAR/NCAR. doi:10.5065/D6MW2F4D}
 		\end{columns}
-	\end{frame}
 	
-	\begin{frame}{Colors}
-		\centering
-		\begin{tikzpicture}[xscale=2.6, yscale=-2]
-		\tikzstyle{colorbox} = [minimum width=1.8cm, minimum height=1.8cm, text width=1.5cm, font=\scriptsize]
+		\vspace{1cm}
 		
-		\node(rouge) at (0,0)[fill=rouge,text=white, colorbox]{rouge};
-		\node(leman) at (0,1)[fill=leman,text=white, colorbox]{leman};
-		\node(grosseille) at (0,2)[fill=grosseille,text=white, colorbox]{grosseille};
-		\node(canard) at (0,3)[fill=canard,text=white, colorbox]{canard};
-		\node(montrose) at (1,0)[fill=montrose,text=white, colorbox]{montrose};
-		\node(perle) at (1,1)[fill=perle,text=white, colorbox]{perle};
-		\node(vertedeau) at (1,2)[fill=vertedeau,text=white, colorbox]{vertedeau};
-		\node(rose) at (1,3)[fill=rose,text=white, colorbox]{rose};
-		\node(acier) at (2,0)[fill=acier,text=white, colorbox]{acier};
-		\node(soufre) at (2,1)[fill=soufre,text=white, colorbox]{soufre};
-		\node(carotte) at (2,2)[fill=carotte,text=white, colorbox]{carotte};
-		\node(zinzolin) at (2,3)[fill=zinzolin,text=white, colorbox]{zinzolin};
-		\node(chartreuse) at (3,0)[fill=chartreuse,text=white, colorbox]{chartreuse};
-		\node(marron) at (3,1)[fill=marron,text=white, colorbox]{marron};
-		\node(ardoise) at (3,2)[fill=ardoise,text=white, colorbox]{ardoise};
-		\node(taupe) at (3,3)[fill=taupe,text=white, colorbox]{taupe};
+		\visible<4>{
+			\begin{tikzpicture}[node distance=0.5em]
+				\node (a) {What features?};
+				\node[right=of a] (b) {What DL Models?};
+				\node[right=of b] (c) {What Learning Algorithms?};
+				
+				\draw[-Stealth] (a) -- (b);
+				\draw[-Stealth] (b) -- (c);
+			\end{tikzpicture}
+		}
+	
+	\end{frame}
+
+	\begin{frame}[plain]{Thank you!}
 		
+		
+		\pgfdeclareimage[width=1.1\paperwidth]{endgraphic}{epfl/tourbillon}
+		%\pgfdeclareimage[width=3cm]{epfllogo}{\@titlepagelogo}
+		
+		\begin{picture}(0,0)
+		
+		\put(-50,-253){%
+			\pgfuseimage{endgraphic}
+		}
+	
+		\end{picture}
+		
+		
+		\begin{tikzpicture}
+%			\node(node name) {\includegraphics[width=1.3\textwidth]{epfl/tourbillon}};
+			\node[text width=5cm, fill=taupe, text=white, font=\bfseries, rounded corners] at (3,-.5){
+				Marc Ru\ss{}wurm \small @marccoru
+				\\
+				\vspace{1em}
+				EPFL-ECEO epfl.ch/labs/eceo \\
+				of Prof. Devis Tuia
+			};
+		
+			\node[text width=3cm, fill=rouge, text=white, inner sep=0.5cm, font=\bfseries\Large, rounded corners] at (2,3){
+				Thank you!
+			};
+		
+			\node[text width=9cm, fill=taupe, text=white, rounded corners] at (0,-3){
+				\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+				
+				\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
+			};
 		\end{tikzpicture}
 		
+
 		
-\end{frame}
+	\end{frame}
+%	
+%	\begin{frame}{Colors}
+%		\centering
+%		\begin{tikzpicture}[xscale=2.6, yscale=-2]
+%		\tikzstyle{colorbox} = [minimum width=1.8cm, minimum height=1.8cm, text width=1.5cm, font=\scriptsize]
+%		
+%		\node(rouge) at (0,0)[fill=rouge,text=white, colorbox]{rouge};
+%		\node(leman) at (0,1)[fill=leman,text=white, colorbox]{leman};
+%		\node(grosseille) at (0,2)[fill=grosseille,text=white, colorbox]{grosseille};
+%		\node(canard) at (0,3)[fill=canard,text=white, colorbox]{canard};
+%		\node(montrose) at (1,0)[fill=montrose,text=white, colorbox]{montrose};
+%		\node(perle) at (1,1)[fill=perle,text=white, colorbox]{perle};
+%		\node(vertedeau) at (1,2)[fill=vertedeau,text=white, colorbox]{vertedeau};
+%		\node(rose) at (1,3)[fill=rose,text=white, colorbox]{rose};
+%		\node(acier) at (2,0)[fill=acier,text=white, colorbox]{acier};
+%		\node(soufre) at (2,1)[fill=soufre,text=white, colorbox]{soufre};
+%		\node(carotte) at (2,2)[fill=carotte,text=white, colorbox]{carotte};
+%		\node(zinzolin) at (2,3)[fill=zinzolin,text=white, colorbox]{zinzolin};
+%		\node(chartreuse) at (3,0)[fill=chartreuse,text=white, colorbox]{chartreuse};
+%		\node(marron) at (3,1)[fill=marron,text=white, colorbox]{marron};
+%		\node(ardoise) at (3,2)[fill=ardoise,text=white, colorbox]{ardoise};
+%		\node(taupe) at (3,3)[fill=taupe,text=white, colorbox]{taupe};
+%		
+%		\end{tikzpicture}
+%		
+%		
+%\end{frame}
 
 \end{document}
