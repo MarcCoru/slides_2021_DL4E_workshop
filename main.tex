@@ -223,9 +223,9 @@
 				\only<1>{
 					\includegraphics[width=.8\textwidth]{images/francecrops/frf1.png}
 				}
-				\only<2>{
-					\includegraphics[width=.8\textwidth]{images/francecrops/fri1.png}
-				}
+%				\only<2>{
+%					\includegraphics[width=.8\textwidth]{images/francecrops/fri1.png}
+%				}
 			};
 			\node[left=-3em of a, text width=3cm]{training and testing on different regions};
 		\end{tikzpicture}
@@ -283,85 +283,85 @@
 	
 
 
-	\begin{frame}[plain]
-		\centering
-		\hfill
-		\Large
-		
-		Model- and Data-Driven Approaches
-		\hfill
-	\end{frame}
-
-	\begin{frame}{Model-Driven Methods {\small (until 2017)}}
-		
-		\begin{columns}
-			\column{.5\textwidth}
-				\resizebox{\textwidth}{!}{
-					\begin{tikzpicture}
-					\node[label={above:\scriptsize growth stages of corn Mimic et al 2020}, inner sep=0](a){\includegraphics[width=6cm]{images/example/mimicetal2020_phenology_maize_}};
-					
-					\node[below=1em of a] (b){\includegraphics{images/example/NDVI}};
-					
-					\coordinate(left)  at ($(a.south west)+(-4.3em,0)$);
-					\coordinate(right) at ($(a.south east)+(1.1em,0)$);
-					
-					\coordinate(veannot) at ($(left)!0.22!(right)$){};
-					\coordinate(vtwoannot) at ($(left)!0.275!(right)$){};
-					\coordinate(vfiveannot) at ($(left)!0.34!(right)$){};
-					\coordinate(vtenannot) at ($(left)!0.42!(right)$){};
-					\coordinate(btnnot) at ($(left)!0.5!(right)$){};
-					\coordinate(rtwoannot) at ($(left)!0.6!(right)$){};
-					\coordinate(rthreeannot) at ($(left)!0.7!(right)$){};
-					\coordinate(rfiveannot) at ($(left)!0.8!(right)$){};
-					\coordinate(harvestannot) at ($(left)!0.9!(right)$){};
-					
-					\coordinate(ve) at      ($ (b.center)+(-4em  ,1em) $);
-					\coordinate(vtwo) at    ($ (b.center)+(-3em  ,1em) $);
-					\coordinate(vfive) at   ($ (b.center)+(-2.5em,3em) $);
-					\coordinate(vten) at    ($ (b.center)+(-2em  ,4em) $);
-					\coordinate(bt) at      ($ (b.center)+(-1.5em,4.5em) $);
-					\coordinate(rtwo) at    ($ (b.center)+(-1em  ,4.5em) $);
-					\coordinate(rthree) at  ($ (b.center)+(-0em  ,2em) $);
-					\coordinate(rfive) at   ($ (b.center)+(1.5em ,0.5em) $);
-					\coordinate(harvest) at ($ (b.center)+(3em   ,0.5em) $);
-					
-					\draw[Circle-,tumorange](veannot)      -- (ve);
-					\draw[Circle-,tumorange](vtwoannot)    -- (vtwo);
-					\draw[Circle-,tumorange](vfiveannot)   -- (vfive);
-					\draw[Circle-,tumorange](vtenannot)    -- (vten);
-					\draw[Circle-,tumorange](btnnot)       -- (bt);
-					\draw[Circle-,tumorange](rtwoannot)    -- (rtwo);
-					\draw[Circle-,tumorange](rthreeannot)  -- (rthree);
-					\draw[Circle-,tumorange](rfiveannot)   -- (rfive);
-					\draw[Circle-,tumorange](harvestannot) -- (harvest);
-					\end{tikzpicture}
-				}
-			\column{.5\textwidth}
-				\includegraphics[width=\textwidth]{images/example/jointplot}
-			
-		\end{columns}
-	
-		\begin{tikzpicture}
-			\tikzstyle{process} = [draw, rounded corners]
-			\node(x){input $\mathbf{X}$};
-			\node[process, right=of x](f){feature definition};
-			\node[process, right=of f](c){classification};
-			\node[right=of c](y){label $y$};
-			\draw[-Stealth](x) -- (f);
-			\draw[-Stealth](f) -- (c);
-			\draw[-Stealth](c) -- (y);
-			\node[below=0cm of f, font=\scriptsize](a){mean NDVI};
-			\node[below=0cm of a, font=\scriptsize](b){max NDVI after Sept};
-			
-			\node[below=0cm of c, font=\scriptsize](a){e.g., SVM, RF};
-		\end{tikzpicture}
-		
-		\vspace{1em}
-		\visible<2>{
-			\centering\textbf{What are the best features?}
-		}
-		
-	\end{frame}
+%	\begin{frame}[plain]
+%		\centering
+%		\hfill
+%		\Large
+%		
+%		Model- and Data-Driven Approaches
+%		\hfill
+%	\end{frame}
+%
+%	\begin{frame}{Model-Driven Methods {\small (until 2017)}}
+%		
+%		\begin{columns}
+%			\column{.5\textwidth}
+%				\resizebox{\textwidth}{!}{
+%					\begin{tikzpicture}
+%					\node[label={above:\scriptsize growth stages of corn Mimic et al 2020}, inner sep=0](a){\includegraphics[width=6cm]{images/example/mimicetal2020_phenology_maize_}};
+%					
+%					\node[below=1em of a] (b){\includegraphics{images/example/NDVI}};
+%					
+%					\coordinate(left)  at ($(a.south west)+(-4.3em,0)$);
+%					\coordinate(right) at ($(a.south east)+(1.1em,0)$);
+%					
+%					\coordinate(veannot) at ($(left)!0.22!(right)$){};
+%					\coordinate(vtwoannot) at ($(left)!0.275!(right)$){};
+%					\coordinate(vfiveannot) at ($(left)!0.34!(right)$){};
+%					\coordinate(vtenannot) at ($(left)!0.42!(right)$){};
+%					\coordinate(btnnot) at ($(left)!0.5!(right)$){};
+%					\coordinate(rtwoannot) at ($(left)!0.6!(right)$){};
+%					\coordinate(rthreeannot) at ($(left)!0.7!(right)$){};
+%					\coordinate(rfiveannot) at ($(left)!0.8!(right)$){};
+%					\coordinate(harvestannot) at ($(left)!0.9!(right)$){};
+%					
+%					\coordinate(ve) at      ($ (b.center)+(-4em  ,1em) $);
+%					\coordinate(vtwo) at    ($ (b.center)+(-3em  ,1em) $);
+%					\coordinate(vfive) at   ($ (b.center)+(-2.5em,3em) $);
+%					\coordinate(vten) at    ($ (b.center)+(-2em  ,4em) $);
+%					\coordinate(bt) at      ($ (b.center)+(-1.5em,4.5em) $);
+%					\coordinate(rtwo) at    ($ (b.center)+(-1em  ,4.5em) $);
+%					\coordinate(rthree) at  ($ (b.center)+(-0em  ,2em) $);
+%					\coordinate(rfive) at   ($ (b.center)+(1.5em ,0.5em) $);
+%					\coordinate(harvest) at ($ (b.center)+(3em   ,0.5em) $);
+%					
+%					\draw[Circle-,tumorange](veannot)      -- (ve);
+%					\draw[Circle-,tumorange](vtwoannot)    -- (vtwo);
+%					\draw[Circle-,tumorange](vfiveannot)   -- (vfive);
+%					\draw[Circle-,tumorange](vtenannot)    -- (vten);
+%					\draw[Circle-,tumorange](btnnot)       -- (bt);
+%					\draw[Circle-,tumorange](rtwoannot)    -- (rtwo);
+%					\draw[Circle-,tumorange](rthreeannot)  -- (rthree);
+%					\draw[Circle-,tumorange](rfiveannot)   -- (rfive);
+%					\draw[Circle-,tumorange](harvestannot) -- (harvest);
+%					\end{tikzpicture}
+%				}
+%			\column{.5\textwidth}
+%				\includegraphics[width=\textwidth]{images/example/jointplot}
+%			
+%		\end{columns}
+%	
+%		\begin{tikzpicture}
+%			\tikzstyle{process} = [draw, rounded corners]
+%			\node(x){input $\mathbf{X}$};
+%			\node[process, right=of x](f){feature definition};
+%			\node[process, right=of f](c){classification};
+%			\node[right=of c](y){label $y$};
+%			\draw[-Stealth](x) -- (f);
+%			\draw[-Stealth](f) -- (c);
+%			\draw[-Stealth](c) -- (y);
+%			\node[below=0cm of f, font=\scriptsize](a){mean NDVI};
+%			\node[below=0cm of a, font=\scriptsize](b){max NDVI after Sept};
+%			
+%			\node[below=0cm of c, font=\scriptsize](a){e.g., SVM, RF};
+%		\end{tikzpicture}
+%		
+%		\vspace{1em}
+%		\visible<2>{
+%			\centering\textbf{What are the best features?}
+%		}
+%		
+%	\end{frame}
 
 	
 	\newcommand{\nn}{
@@ -397,67 +397,67 @@
 			\draw[-Stealth](f) -- (y);
 		\end{tikzpicture}
 	}
-
-	\begin{frame}[t]{Data-Driven Methods}
-		
-		
-		\centering
-		\featurelearningtikz
-		
-		\vspace{1em}
-		
-		\raggedright
-		
-		\resizebox{\textwidth}{!}{
-			\input{tikzfigures/NN-transformations.tikz}
-		}
-	
-		\vspace{1em}
-		\visible<2>{
-			\centering\textbf{What are the best DL models?}
-		}
-	\end{frame}
-
-	\begin{frame}[t]{Data-Driven Methods}
-		\centering
-		\featurelearningtikz
-		
-		\raggedright
-		\hspace{-1em} Search for suitable data-specific architecture
-			
-			{ 
-%				\begin{columns}[t]
-					
-%					\column{.5\textwidth}
-					
-					\vspace{1em}
-					
-					In general
-						\begin{itemize}
-							\item CNNs for images (e.g. ResNet50)
-							\item Transformers for language (e.g. Bert)
-							\item RNNs for state-memory problems (e.g. hydrological modeling).
-						\end{itemize}
-%					\column{.5\textwidth}
-					
-%					For crop type mapping
-%					\begin{itemize}
-%						\item CNNs 
-%						\item RNNs 
-%						\item Transformers
-%					\end{itemize}
-				
-%				\end{columns}
-			}
-		\pause
-		\vspace{2em}
-			\raggedright
-			{Data-driven deep learning models are very plastic and (blindly) learn to approximate target data.}\\
-			\pause
-			\vspace{1em}
-			We need to \textbf{think carefully} how \textbf{we sample} and \textbf{select data}. 
-			
-	\end{frame}
+%
+%	\begin{frame}[t]{Data-Driven Methods}
+%		
+%		
+%		\centering
+%		\featurelearningtikz
+%		
+%		\vspace{1em}
+%		
+%		\raggedright
+%		
+%		\resizebox{\textwidth}{!}{
+%			\input{tikzfigures/NN-transformations.tikz}
+%		}
+%	
+%		\vspace{1em}
+%		\visible<2>{
+%			\centering\textbf{What are the best DL models?}
+%		}
+%	\end{frame}
+%
+%	\begin{frame}[t]{Data-Driven Methods}
+%		\centering
+%		\featurelearningtikz
+%		
+%		\raggedright
+%		\hspace{-1em} Search for suitable data-specific architecture
+%			
+%			{ 
+%%				\begin{columns}[t]
+%					
+%%					\column{.5\textwidth}
+%					
+%					\vspace{1em}
+%					
+%					In general
+%						\begin{itemize}
+%							\item CNNs for images (e.g. ResNet50)
+%							\item Transformers for language (e.g. Bert)
+%							\item RNNs for state-memory problems (e.g. hydrological modeling).
+%						\end{itemize}
+%%					\column{.5\textwidth}
+%					
+%%					For crop type mapping
+%%					\begin{itemize}
+%%						\item CNNs 
+%%						\item RNNs 
+%%						\item Transformers
+%%					\end{itemize}
+%				
+%%				\end{columns}
+%			}
+%		\pause
+%		\vspace{2em}
+%			\raggedright
+%			{Data-driven deep learning models are very plastic and (blindly) learn to approximate target data.}\\
+%			\pause
+%			\vspace{1em}
+%			We need to \textbf{think carefully} how \textbf{we sample} and \textbf{select data}. 
+%			
+%	\end{frame}
 
 	\begin{frame}[plain]
 		\centering
@@ -513,39 +513,39 @@
 		\citeapa{Shai Ben-David and Shai Shalev-Shwartz (2014). Understanding Machine Learning: From Theory to Algorithms}
 	\end{frame}
 
-	\begin{frame}[plain]
-		\centering
-		\hfill
-		\Large
-		
-		Our central Assumption in Machine Learning
-		%		What assumptions do we take in \\ Machine Learning?
-		
-		
-		\hfill
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{I.I.D assumption}
-		
-		we use a dataset $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$ of \textbf{independently} and and \textbf{identically} distributed (i.i.d) samples.
-		\vspace{1em}
-		
+%	\begin{frame}[plain]
+%		\centering
+%		\hfill
+%		\Large
+%		
+%		Our central Assumption in Machine Learning
+%		%		What assumptions do we take in \\ Machine Learning?
+%		
+%		
+%		\hfill
+%	\end{frame}
+%	
+%	\begin{frame}
+%		\frametitle{I.I.D assumption}
+%		
+%		we use a dataset $\{(\mathbf{X}_i,y_i)\}_{i=1}^N \iidsim P(\mathcal{X} \times \mathcal{Y})$ of \textbf{independently} and and \textbf{identically} distributed (i.i.d) samples.
+%		\vspace{1em}
+%		
+%%		\pause
+%		we need \textbf{independence} for the factorization in max likelihood.
+%		\begin{align*}
+%		\theta^\ast &= \arg\max_\theta \prod_{i} p(y_i \vert \mathbf{X}_i)  \\
+%		&= \arg\min_\theta \sum_{i} -y_i \log f_\theta(\mathbf{X}_i)
+%		\end{align*}
+%		
 %		\pause
-		we need \textbf{independence} for the factorization in max likelihood.
-		\begin{align*}
-		\theta^\ast &= \arg\max_\theta \prod_{i} p(y_i \vert \mathbf{X}_i)  \\
-		&= \arg\min_\theta \sum_{i} -y_i \log f_\theta(\mathbf{X}_i)
-		\end{align*}
-		
-		\pause
-		we assume an \textbf{identical} (joint) \textbf{distribution} $P(\mathcal{X} \times \mathcal{Y})$ throughout the entire data generation { \scriptsize (and particularly between training and test time) }
-		\begin{align}
-		X_i,y_i \iidsim P(\mathcal{X} \times \mathcal{Y})
-		\end{align}
-		which implies identical domains $\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$ and tasks $\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$ during training and test time.
-		
-	\end{frame}
+%		we assume an \textbf{identical} (joint) \textbf{distribution} $P(\mathcal{X} \times \mathcal{Y})$ throughout the entire data generation { \scriptsize (and particularly between training and test time) }
+%		\begin{align}
+%		X_i,y_i \iidsim P(\mathcal{X} \times \mathcal{Y})
+%		\end{align}
+%		which implies identical domains $\mathcal{D} = \{\mathcal{X}, P(\mathcal{X})\}$ and tasks $\mathcal{T} = \{\mathcal{Y}, f(\cdot)\}$ during training and test time.
+%		
+%	\end{frame}
 
 	\begin{frame}{In- and Out-of-Dist. Generalization}
 		
@@ -561,7 +561,7 @@
 			\draw[-Stealth](ds) --node[midway, left=1em, font=\tiny, name=labelsplit]{random split} (dstrain);
 			\draw[-Stealth](ds) -- (dstest);
 			
-			\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: I.I.D Machine Learning}]{};
+			\node[draw, rounded corners, fit=(ds)(dstrain)(dstest)(labelsplit), label={above: I.I.D Machine Learning}](b1){};
 			
 			\node[below=of dstrain, label={[font=\tiny]below:train model}] (weights) {$f_\theta$};
 			\draw[-Stealth] (dstrain) -- (weights);
@@ -579,7 +579,7 @@
 				\node[below=0em of Q](domain){$\mathcal{D}_Q = \{\mathcal{X}, P_Q(\mathcal{X})\}$};
 				\node[below=-.5em of domain](task){$\mathcal{T}_Q = \{\mathcal{Y}, f_Q(\cdot)\}$};
 				
-				\node[rounded corners, fit=(Q)(domain)(task), label={above: Data of another distribution\phantom{g}}]{};
+				\node[rounded corners, fit=(Q)(domain)(task), label={above: Data of another distribution\phantom{g}}](b2){};
 				
 				\node[right=8em of testloss] (oodloss) {$\mathcal{L}_\text{out}$};
 				\node[below=0em of oodloss, text width=3cm, font=\scriptsize](oodlabel){"out-of-domain" or \\ "out-of-distribution" \\ generalization};
@@ -587,50 +587,55 @@
 				\draw[-Stealth] (testloss) -- node[midway,above,font=\tiny]{compare with $f_Q(\cdot)$} (oodloss);
 				\draw[-Stealth] (task) -- (oodloss);
 			}
+		
+			\visible<3->{
+				\node[fill=white, fill opacity=0.5, text opacity=1] at (b1) {\includegraphics[width=4cm]{images/francecrops/frf1_train_highlighted}};
+				\node[fill=white, fill opacity=0.5, text opacity=1] at (b2) {\includegraphics[width=4cm]{images/francecrops/frf1_test_highlighted}};
+			}
 		\end{tikzpicture}
 	\end{frame}
 
 
-	\begin{frame}{Train/Test Dists are usually not identical}
-		
-		Examples
-		\begin{columns}[t]
-			\column{.5\textwidth}
-			
-			gender classification \\
-			{\scriptsize (Buolamwini \& Gebru, 2016)}
-			
-			\vspace{1em}
-			
-			\includegraphics[width=\textwidth]{images/BoulamwiniGebru2016}
-			
-			\vspace{1em}
-			
-			CV classifiers performed
-			\begin{itemize}
-				\item worst for darker females
-				\item best for lighter males
-			\end{itemize}
-			
-			\column{.5\textwidth}
-			
-			large language models
-			
-			\begin{itemize}
-				\item Trained on massive text datasets on the internet (e.g. Reddit, News, Blogs).
-				\item deployed in everyday situations (e.g. chat bots,  drafting blog posts).
-			\end{itemize}
-			
-			Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
-			
-		\end{columns}
-		
-		\vfill
-		
-		\citeapa{Buolamwini, J., \& Gebru, T. (2018, January). Gender shades: Intersectional accuracy disparities in commercial gender classification. In Conference on fairness, accountability and transparency (pp. 77-91). PMLR.}
-		
-		\citeapa{Nadeem, M., Bethke, A., \& Reddy, S. (2020). Stereoset: Measuring stereotypical bias in pretrained language models. arXiv preprint arXiv:2004.09456.}
-	\end{frame}
+%	\begin{frame}{Train/Test Dists are usually not identical}
+%		
+%		Examples
+%		\begin{columns}[t]
+%			\column{.5\textwidth}
+%			
+%			gender classification \\
+%			{\scriptsize (Buolamwini \& Gebru, 2016)}
+%			
+%			\vspace{1em}
+%			
+%			\includegraphics[width=\textwidth]{images/BoulamwiniGebru2016}
+%			
+%			\vspace{1em}
+%			
+%			CV classifiers performed
+%			\begin{itemize}
+%				\item worst for darker females
+%				\item best for lighter males
+%			\end{itemize}
+%			
+%			\column{.5\textwidth}
+%			
+%			large language models
+%			
+%			\begin{itemize}
+%				\item Trained on massive text datasets on the internet (e.g. Reddit, News, Blogs).
+%				\item deployed in everyday situations (e.g. chat bots,  drafting blog posts).
+%			\end{itemize}
+%			
+%			Strereotyp-bias is encoded via the training dataset and can be quantified {\scriptsize (Nadeem et al., 2020)}
+%			
+%		\end{columns}
+%		
+%		\vfill
+%		
+%		\citeapa{Buolamwini, J., \& Gebru, T. (2018, January). Gender shades: Intersectional accuracy disparities in commercial gender classification. In Conference on fairness, accountability and transparency (pp. 77-91). PMLR.}
+%		
+%		\citeapa{Nadeem, M., Bethke, A., \& Reddy, S. (2020). Stereoset: Measuring stereotypical bias in pretrained language models. arXiv preprint arXiv:2004.09456.}
+%	\end{frame}
 
 %	\begin{frame}{Measuring OOD Generalization}
 %		\begin{tikzpicture}
@@ -672,25 +677,25 @@
 %		\end{tikzpicture}
 %	\end{frame}
 
-	\begin{frame}{Global Distribution Shift}
-		\includegraphics[width=\textwidth]{images/countries_globe}
-		
-		\vspace{0.5em}
-		
-		\scriptsize
-		Figure from
-		
-		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
-		
-		\scriptsize
-		Data from
-		
-		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
-	\end{frame}
-
-	\begin{frame}
-		\includegraphics[width=.8\textwidth]{images/francecrops/frf1.png}
-	\end{frame}
+%	\begin{frame}{Global Distribution Shift}
+%		\includegraphics[width=\textwidth]{images/countries_globe}
+%		
+%		\vspace{0.5em}
+%		
+%		\scriptsize
+%		Figure from
+%		
+%		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
+%		
+%		\scriptsize
+%		Data from
+%		
+%		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
+%	\end{frame}
+%
+%	\begin{frame}
+%		\includegraphics[width=.8\textwidth]{images/francecrops/frf1.png}
+%	\end{frame}
 	
 	%	\begin{frame}{Domain and Task}
 	%		\begin{tikzpicture}
@@ -804,27 +809,27 @@
 		
 		\end{tikzpicture}
 		
-		\vfill
-		\only<1>{
-			{	\scriptsize
-				Side Note: "Transfer Learning aims to help improve the learning of the target predictive function $f_Q(\cdot)$ for the target domain using the knowledge in $\mathcal{D}_s$ and $\mathcal{T}_s$ where $\mathcal{D}_s \neq \mathcal{D}_t$ and $\mathcal{T}_s \neq \mathcal{T}_t$" \par
-			}
-			\vspace{.5em}
-				\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
-		}
-		\only<2>{
-			{	\scriptsize
-				Side-Note 2: Examples of recent methods for crop type mapping.
-				
-				\vspace{.5em}
-				
-				\citeapa{Lucas, B., Pelletier, C., Schmidt, D., Webb, G. I., \& Petitjean, F. (2021). A Bayesian-inspired, deep learning-based, semi-supervised domain adaptation technique for land cover mapping. Machine Learning, 1-33.}
-				
-				\vspace{.5em}
-				
-				\citeapa{Joachim Nyborg, Charlotte Pelletier, Sébastien Lefèvre \& Ira Assent (2021). TimeMatch: Unsupervised Cross-Region Adaptation by Temporal Shift Estimation. Preprint}
-			}
-		}
+%		\vfill
+%		\only<1>{
+%			{	\scriptsize
+%				Side Note: "Transfer Learning aims to help improve the learning of the target predictive function $f_Q(\cdot)$ for the target domain using the knowledge in $\mathcal{D}_s$ and $\mathcal{T}_s$ where $\mathcal{D}_s \neq \mathcal{D}_t$ and $\mathcal{T}_s \neq \mathcal{T}_t$" \par
+%			}
+%			\vspace{.5em}
+%				\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
+%		}
+%		\only<2>{
+%			{	\scriptsize
+%				Side-Note 2: Examples of recent methods for crop type mapping.
+%				
+%				\vspace{.5em}
+%				
+%				\citeapa{Lucas, B., Pelletier, C., Schmidt, D., Webb, G. I., \& Petitjean, F. (2021). A Bayesian-inspired, deep learning-based, semi-supervised domain adaptation technique for land cover mapping. Machine Learning, 1-33.}
+%				
+%				\vspace{.5em}
+%				
+%				\citeapa{Joachim Nyborg, Charlotte Pelletier, Sébastien Lefèvre \& Ira Assent (2021). TimeMatch: Unsupervised Cross-Region Adaptation by Temporal Shift Estimation. Preprint}
+%			}
+%		}
 	\end{frame}
 
 	\begin{frame}{Improve on the target Task/Domain}
@@ -921,91 +926,96 @@
 		
 		\scriptsize
 		\begin{columns}[t]
-			\column{.33\textwidth}
-			Random Initialization
-			
-			\begin{tikzpicture}[scale=0.5]
-			
-				\visible<1-7>{
-					\node (metaparameters) at (1,0){$\theta^\text{rand}$};
-					
-					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
-					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
-					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
-				}
-				
-				\visible<8>{	
-					
-					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
-					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
-					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+%			\column{.33\textwidth}
+%			Random Initialization
+%			
+%			\begin{tikzpicture}[scale=0.5]
+%			
+%				\visible<1-7>{
+%					\node (metaparameters) at (1,0){$\theta^\text{rand}$};
 %					
-					\node (p) at (1,0){$\theta^\text{rand}$};
-					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
-					
-					\draw[-Stealth] (p) -- (q);
-				}
-			\end{tikzpicture}
-			\visible<8>{
-				\textbf{random} baseline
-			}
-		
-			\column{.33\textwidth}
-			Pretrained Initialization
+%					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+%					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+%					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+%				}
+%				
+%				\visible<8>{	
+%					
+%					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+%					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+%					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+%%					
+%					\node (p) at (1,0){$\theta^\text{rand}$};
+%					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+%					
+%					\draw[-Stealth] (p) -- (q);
+%				}
+%			\end{tikzpicture}
+%			\visible<8>{
+%				\textbf{random} baseline
+%			}
+%		
+%			\column{.33\textwidth}
+%			Pretrained Initialization
+%			
+%			\begin{tikzpicture}[scale=0.5]
+%			
+%				\visible<1-7>{
+%					\node[dist, inner color=rouge](a) at (3,2){$f_{P_1}$};
+%					\node[dist, inner color=rouge](b) at (6,0){$f_{P_2}$};
+%					\node[dist, inner color=rouge](c) at (3,-2){$f_{P_3}$};
+%				}
+%			
+%				\visible<1-2>{
+%					\node (p) at (1,0){$\theta^\text{rand}$};
+%					
+%					\draw[-Stealth] (p) -- (a.center);
+%					\draw[-Stealth] (p) -- (b.center);
+%					\draw[-Stealth] (p) -- (c.center);
+%				}
+%			
+%				\visible<2>{
+%					\draw[-Stealth, rouge] (a.center) to[bend left=25] (p);
+%					\draw[-Stealth, rouge] (b.center) to[bend left=15] (p);
+%					\draw[-Stealth, rouge] (c.center) to[bend left=25] (p);	
+%				}
+%			
+%				\visible<3>{
+%					\node (p) at (1,0){$\theta^\text{rand.}$};
+%					\node (p2) at (4,0){$\theta^\text{pretr.}$};
+%					\draw[-Stealth] (p) -- node[midway, above, font=\tiny]{SGD} (p2);
+%				}
+%				
+%				\visible<7>{
+%					\node (p) at (4,0){$\theta^\text{pretr.}$};
+%					\draw[-Stealth] (p) -- (a.center);
+%					\draw[-Stealth] (p) -- (b.center);
+%					\draw[-Stealth] (p) -- (c.center);
+%				}
+%			
+%				\visible<8>{	
+%					
+%					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
+%					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
+%					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
+%					
+%					\node (p) at (4,0){$\theta^\text{pretrained}$};
+%					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
+%					
+%					\draw[-Stealth] (p) -- (q);
+%				}
+%				
+%			\end{tikzpicture}
+%			\visible<8>{
+%				Optimized \textbf{to perform} well on source distributions
+%				}
+
+			\column{.66\textwidth}
 			
-			\begin{tikzpicture}[scale=0.5]
+				\includegraphics[width=\textwidth]{maml_algs/maml_alg}
+%		
+			\column{.5\textwidth}
 			
-				\visible<1-7>{
-					\node[dist, inner color=rouge](a) at (3,2){$f_{P_1}$};
-					\node[dist, inner color=rouge](b) at (6,0){$f_{P_2}$};
-					\node[dist, inner color=rouge](c) at (3,-2){$f_{P_3}$};
-				}
-			
-				\visible<1-2>{
-					\node (p) at (1,0){$\theta^\text{rand}$};
-					
-					\draw[-Stealth] (p) -- (a.center);
-					\draw[-Stealth] (p) -- (b.center);
-					\draw[-Stealth] (p) -- (c.center);
-				}
-			
-				\visible<2>{
-					\draw[-Stealth, rouge] (a.center) to[bend left=25] (p);
-					\draw[-Stealth, rouge] (b.center) to[bend left=15] (p);
-					\draw[-Stealth, rouge] (c.center) to[bend left=25] (p);	
-				}
-			
-				\visible<3>{
-					\node (p) at (1,0){$\theta^\text{rand.}$};
-					\node (p2) at (4,0){$\theta^\text{pretr.}$};
-					\draw[-Stealth] (p) -- node[midway, above, font=\tiny]{SGD} (p2);
-				}
-				
-				\visible<7>{
-					\node (p) at (4,0){$\theta^\text{pretr.}$};
-					\draw[-Stealth] (p) -- (a.center);
-					\draw[-Stealth] (p) -- (b.center);
-					\draw[-Stealth] (p) -- (c.center);
-				}
-			
-				\visible<8>{	
-					
-					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
-					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
-					\node[dist, inner color=perle, color=perle](c) at (3,-2){$f_{P_3}$};
-					
-					\node (p) at (4,0){$\theta^\text{pretrained}$};
-					\node[dist, inner color=acier](q) at (6,-3){$f_{Q}$};
-					
-					\draw[-Stealth] (p) -- (q);
-				}
-				
-			\end{tikzpicture}
-			\visible<8>{
-				Optimized \textbf{to perform} well on source distributions
-				}
-		
-			\column{.33\textwidth}
 			Meta-Learned Initialization
 			
 			\begin{tikzpicture}[scale=0.5]
@@ -1104,14 +1114,39 @@
 	\end{frame}
 
 	
-	\begin{frame}[plain]
-		\centering
-		\hfill
-		\Large
+%	\begin{frame}[plain]
+%		\centering
+%		\hfill
+%		\Large
+%		
+%		Experiments
+%		
+%		\hfill
+%	\end{frame}
+
+	\begin{frame}{Deepglobe Land Cover Classification}
+		\begin{columns}
+			\column{.4\textwidth}
+			\includegraphics[width=\textwidth]{deepglobe/deepglobe_dataset}
+			\column{.6\textwidth}
+			
+			\visible<2>{
+				
+				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_shots}
+				
+				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_pca}
+				
+				\begin{tikzpicture}[xscale=1.2]
+				\node[fill=tumbluelight,font=\tiny,text=white] at (0,0){random};
+				\node[fill=tumbluedark,font=\tiny,text=white] at (1,0){pretrained};
+				\node[fill=tumorange,font=\tiny,text=white] at (2,0){MAML};
+				\end{tikzpicture}
+				
+			}
+		\end{columns}
 		
-		Experiments
+		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
 		
-		\hfill
 	\end{frame}
 
 	\begin{frame}{Sen12MS -- Land Cover Classification}
@@ -1150,41 +1185,17 @@
 				\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
 
-	\begin{frame}{Deepglobe Results}
-		\begin{columns}
-			\column{.4\textwidth}
-			\includegraphics[width=\textwidth]{deepglobe/deepglobe_dataset}
-			\column{.6\textwidth}
-			
-			\visible<2>{
-
-				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_shots}
-				
-				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_pca}
-				
-				\begin{tikzpicture}[xscale=1.2]
-					\node[fill=tumbluelight,font=\tiny,text=white] at (0,0){random};
-					\node[fill=tumbluedark,font=\tiny,text=white] at (1,0){pretrained};
-					\node[fill=tumorange,font=\tiny,text=white] at (2,0){MAML};
-				\end{tikzpicture}
-				
-			}
-		\end{columns}
-	
-		\citeapa{Rußwurm, M., Wang, S., Korner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
-		
-	\end{frame}
-
 	\begin{frame}{Modis Time Series Classification}
 		\centering
 %		\begin{columns}
 %			\column{.4\textwidth}
 %				\includegraphics[width=\textwidth]{igarss2020/examples}
-				\includegraphics[width=4cm]{igarss2020/modis_task_map}
+				\includegraphics[height=2.5cm]{igarss2020/modis_task_map}
+%				\includegraphics[height=1.5cm]{igarss2020/modis_task}
 %			\column{.6\textwidth}
 				\includegraphics[width=7cm]{igarss2020/modis_africa_histograms_narrow}
 				
-		1-shot 2-way
+		1-shot 2-way, 515 meta-test tasks from Sub-Saharan  Africa
 %		\end{columns}
 
 		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
