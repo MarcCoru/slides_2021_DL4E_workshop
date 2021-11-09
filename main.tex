@@ -120,7 +120,9 @@
 			
 		\end{columns}
 	
-		\visible<4>{
+		
+	
+		\only<4>{
 			
 			\vspace{2em}
 			
@@ -128,11 +130,20 @@
 			
 			\vspace{1em}
 			
-			Satellite Time Series Data $\rightarrow$ Crop Type Label \scriptsize (e.g. corn, meadow)
+			Satellite Time Series Data $\rightarrow$ Crop Type Label {\scriptsize (e.g. corn, meadow)}
+		
+	}
+	\only<5>{	
+			\vspace{2em}
 			
+			
+			Later: Land Cover Classification
+			
+			\vspace{1em}
+			Satellite Image $\rightarrow$ Land Cover Label \scriptsize (e.g. urban, forest)
+			}
 		
 		
-		}
 	\end{frame}
 
 
@@ -169,13 +180,14 @@
 
 	\begin{frame}{Satellite Time Series Data in Abundance}
 		
-		\includemedia[
-		width=\textwidth,
-		activate=pageopen,
-		addresource=mp4/apenne_modis_ndvi.mp4,
-		flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
-			autoPlay=true}
-		]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
+%		\includemedia[
+%		width=\textwidth,
+%		activate=pageopen,
+%		addresource=mp4/apenne_modis_ndvi.mp4,
+%		flashvars={source=mp4/apenne_modis_ndvi.mp4&loop=true&
+%			autoPlay=true}
+%		]{\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}}{mp4/apenne_modis_ndvi.mp4}
+		\includegraphics[width=\textwidth]{mp4/apenne_modis_ndvi.png}
 		
 		{\tiny visualization \href{https://github.com/aaronpenne}{Aaron Penne Github}}
 		
@@ -1130,7 +1142,12 @@
 
 	\end{frame}
 
-	
+	\begin{frame}[plain]
+		\vfill
+		\Large \centering
+			Experiments
+		\vfill
+	\end{frame}
 	
 	\begin{frame}{Deepglobe Land Cover Classification}
 		\begin{columns}
@@ -1138,20 +1155,23 @@
 			\includegraphics[width=\textwidth]{deepglobe/deepglobe_dataset}
 			\column{.6\textwidth}
 			
+			\visible<2->{\includegraphics[height=1.8cm]{deepglobe/deepglobe_results_shots_1}}
+			\visible<5->{\includegraphics[height=1.8cm]{deepglobe/deepglobe_results_shots_2}}
+				
+			\visible<3->{\includegraphics[height=3.7cm]{deepglobe/deepglobe_results_pca_1}}
+			\visible<4->{\includegraphics[height=3.7cm]{deepglobe/deepglobe_results_pca_2}}
+				
 			\visible<2>{
-				
-				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_shots}
-				
-				\includegraphics[width=\textwidth]{deepglobe/deepglobe_results_pca}
-				
 				\begin{tikzpicture}[xscale=1.2]
 				\node[fill=tumbluelight,font=\tiny,text=white] at (0,0){random};
 				\node[fill=tumbluedark,font=\tiny,text=white] at (1,0){pretrained};
 				\node[fill=tumorange,font=\tiny,text=white] at (2,0){MAML};
 				\end{tikzpicture}
-				
 			}
+			
 		\end{columns}
+	
+		\vspace{1em}
 		
 		\citeapa{Rußwurm, M., Wang, S., Körner, M., \& Lobell, D. (2020). Meta-learning for few-shot land cover classification. In Proceedings of the ieee/cvf conference on computer vision and pattern recognition workshops (pp. 200-201).}
 		
@@ -1166,22 +1186,6 @@
 		\citeapa{Schmitt, M., Hughes, L. H., Qiu, C., \& Zhu, X. X. (2019). SEN12MS--A Curated Dataset of Georeferenced Multi-Spectral Sentinel-1/2 Imagery for Deep Learning and Data Fusion. arXiv preprint arXiv:1906.07789.}
 	\end{frame}
 
-	\begin{frame}{Similar weights after adaptation?}
-		PCA-representations of the neural network weights \\ before ($\theta$) and after adaptation $(\phi)$.
-		
-		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-31}
-		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-79}
-		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-129}
-%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/124-125}
-%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/129-147}
-	
-		\vspace{1em}
-		Traversing the loss landscape from $\theta$ to $\phi$.
-	
-		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/maml}
-		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/pretrained}
-	\end{frame}
-%
 %	\begin{frame}
 %		\tikzstyle{labelstyle} = [font=\tiny\sffamily]
 %		
@@ -1366,7 +1370,7 @@
 			
 			\column{.5\textwidth}
 			
-			\visible<3->{
+			\visible<4->{
 				Marine Litter Detection
 				\includegraphics[width=\textwidth]{figures/oceans_map}
 				\includegraphics[width=\textwidth]{figures/oceans_predictions}
@@ -1382,12 +1386,12 @@
 	
 		\vspace{1cm}
 		
-		\visible<4>{
+		\visible<5>{
 			\begin{tikzpicture}[node distance=0.5em]
-				\node (a) {What features?};
-				\node[right=of a] (b) {What DL Models?};
-				\node[right=of b] (c) {What Learning Algorithms?};
+				\node (a) {what features?};
 				
+				\node[right=of a] (b) {what DL models?};
+				\node[right=of b] (c) {what learning algorithms?};
 				\draw[-Stealth] (a) -- (b);
 				\draw[-Stealth] (b) -- (c);
 			\end{tikzpicture}
@@ -1434,7 +1438,24 @@
 
 		
 	\end{frame}
-%	
+
+
+	\begin{frame}{Similar weights after adaptation?}
+		PCA-representations of the neural network weights \\ before ($\theta$) and after adaptation $(\phi)$.
+		
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-31}
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-79}
+		\includegraphics[width=.32\textwidth]{figures/sen12ms-adaptation/56-129}
+		%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/124-125}
+		%		\includegraphics[width=3cm]{figures/sen12ms-adaptation/129-147}
+		
+		\vspace{1em}
+		Traversing the loss landscape from $\theta$ to $\phi$.
+		
+		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/maml}
+		\includegraphics[width=.49\textwidth]{figures/sen12ms-1d-losses/pretrained}
+	\end{frame}
+	
 %	\begin{frame}{Colors}
 %		\centering
 %		\begin{tikzpicture}[xscale=2.6, yscale=-2]
