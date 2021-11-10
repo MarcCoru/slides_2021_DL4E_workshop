@@ -1121,7 +1121,7 @@
 %					\draw[-Stealth] (pc) -- (c.center);
 				}
 			
-				\visible<7>{	
+				\visible<7->{	
 					
 					\node[dist, inner color=perle, color=perle](a) at (3,2){$f_{P_1}$};
 					\node[dist, inner color=perle, color=perle](b) at (6,0){$f_{P_2}$};
@@ -1134,9 +1134,15 @@
 				}
 				
 			\end{tikzpicture}
-			\visible<7>{
+			\visible<7->{
 			Optimized \textbf{to adapt} well to source distributions
 			}
+			\visible<8>{
+				
+				\vspace{1em}
+				
+				while regular \textbf{pretraining} is optimized \textbf{to perform} well on source distributions.
+				}
 			
 		\end{columns}
 
@@ -1287,7 +1293,7 @@
 				
 		\vfill
 		
-		1-shot 2-way, 515 meta-test tasks from Sub-Saharan  Africa
+		1-shot 2-way, 515 meta-test tasks from Africa
 %		\end{columns}
 
 		\citeapa{Wang, S., Rußwurm, M., Körner, M., \& Lobell, D. B. Meta-Learning For Few-Shot Time Series Classification. In IGARSS 2020-2020 IEEE International Geoscience and Remote Sensing Symposium (pp. 7041-7044). IEEE.}
@@ -1321,38 +1327,38 @@
 		\citeapa{Qiang Yang; Yu Zhang, Wenyuan Dai; Sinno Jialin Pan (Editors) (2020). Transfer learning. Cambridge University Press. DOI 9781139061773}
 	\end{frame}
 
-	\begin{frame}{Summary MAML Experiments}
-		
-%		\begin{columns}[t]
-%			\column{.5\textwidth}
-%				In General
-%				\begin{itemize}
-%					\item Relaxing identical distribution assumption is important!
-%					\item On any geographic data, joint data distributions change
-%					\item in practice, we always train and test on other domains and tasks
-%					\item the question for algorithm designs is how different are these domains/tasks?
-%				\end{itemize}
-%			\column{.5\textwidth}
-				Model-Agnostic Meta Learning
-				\begin{itemize}
-					\item<1-> was effective in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
-					\item<2-> tailored towards few-shot problems while we often have many data shots available 
-					\item<3-> implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
-					\item<4-> Newer approaches have been proposed (MAML++, ProtoMAML, etc)
-				\end{itemize}
-%		\end{columns}
-
-%		\vspace{1em}
+%	\begin{frame}{Summary MAML Experiments}
 %		
-%		how to integrate task/domain specific information?
-%		\begin{itemize}
-%			\item \citeapa{Tseng, G., Kerner, H., Nakalembe, C., \& Becker-Reshef, I. (2021). Learning To Predict Crop Type From Heterogeneous Sparse Labels Using Meta-Learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1111-1120).}
-%			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
-%		\end{itemize}
-%	
-
-
-	\end{frame}
+%%		\begin{columns}[t]
+%%			\column{.5\textwidth}
+%%				In General
+%%				\begin{itemize}
+%%					\item Relaxing identical distribution assumption is important!
+%%					\item On any geographic data, joint data distributions change
+%%					\item in practice, we always train and test on other domains and tasks
+%%					\item the question for algorithm designs is how different are these domains/tasks?
+%%				\end{itemize}
+%%			\column{.5\textwidth}
+%				Model-Agnostic Meta Learning
+%				\begin{itemize}
+%					\item<1-> was effective in some cases (Sen12MS). Not in others (DeepGlobe, Time Series Classification)
+%					\item<2-> tailored towards few-shot problems while we often have many data shots available 
+%					\item<3-> implementation-wise challenging (2nd order gradients), batching the task/domains in a certain way.
+%					\item<4-> Newer approaches have been proposed (MAML++, ProtoMAML, etc)
+%				\end{itemize}
+%%		\end{columns}
+%
+%%		\vspace{1em}
+%%		
+%%		how to integrate task/domain specific information?
+%%		\begin{itemize}
+%%			\item \citeapa{Tseng, G., Kerner, H., Nakalembe, C., \& Becker-Reshef, I. (2021). Learning To Predict Crop Type From Heterogeneous Sparse Labels Using Meta-Learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 1111-1120).}
+%%			\item \citeapa{Tseng, G., Zvonkov, I., Nakalembe, C. L., \& Kerner, H. (2021). CropHarvest: A global dataset for crop-type classification.}
+%%		\end{itemize}
+%%	
+%
+%
+%	\end{frame}
 
 	\begin{frame}{Outlook}
 %						In General
@@ -1370,7 +1376,7 @@
 			
 			\column{.5\textwidth}
 			
-			\visible<4->{
+			\visible<3->{
 				Marine Litter Detection
 				\includegraphics[width=\textwidth]{figures/oceans_map}
 				\includegraphics[width=\textwidth]{figures/oceans_predictions}
@@ -1386,7 +1392,7 @@
 	
 		\vspace{1cm}
 		
-		\visible<5>{
+		\visible<4>{
 			\begin{tikzpicture}[node distance=0.5em]
 				\node (a) {what features?};
 				
@@ -1419,9 +1425,13 @@
 			\node[text width=5cm, fill=taupe, text=white, font=\bfseries, rounded corners] at (3,-.5){
 				Marc Ru\ss{}wurm \small @marccoru
 				\\
-				\vspace{1em}
+				\vspace{1em} 
+				marc.russwurm@epfl.ch
+%				\vspace{1em} 
+				\\
+				
 				EPFL-ECEO epfl.ch/labs/eceo \\
-				of Prof. Devis Tuia
+				
 			};
 		
 			\node[text width=3cm, fill=rouge, text=white, inner sep=0.5cm, font=\bfseries\Large, rounded corners] at (2,3){
